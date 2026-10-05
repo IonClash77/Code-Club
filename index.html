@@ -396,7 +396,7 @@
                 <span class="text-brand-ice font-semibold text-xs tracking-wider uppercase">Interactive Exercise</span>
                 <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-1">Daily Tactical Puzzle</h2>
                 <p class="text-slate-300 text-sm mt-3">
-                    White to play and execute the decisive combination. Click the white piece and choose its destination square!
+                    White to play and execute the decisive combination. Click a piece and its destination square to test your tactical vision!
                 </p>
             </div>
 
@@ -408,9 +408,9 @@
                     <div class="lg:col-span-7 flex flex-col items-center">
                         <div class="w-full max-w-[380px] sm:max-w-[420px] flex justify-between items-center text-xs text-slate-300 mb-2.5 px-1 font-mono">
                             <span class="text-brand-ice font-semibold flex items-center gap-1.5">
-                                <span class="w-2 h-2 rounded-full bg-brand-ice"></span> White to move (Mate in 2)
+                                <span class="w-2 h-2 rounded-full bg-brand-ice animate-pulse"></span> White to move (Mate in 2)
                             </span>
-                            <span id="puzzle-step-badge" class="bg-navy-800 px-2 py-0.5 rounded text-slate-300 border border-slate-700">Turn 1/2</span>
+                            <span id="puzzle-step-badge" class="bg-navy-800 px-2.5 py-0.5 rounded text-brand-ice border border-slate-700 font-semibold">Turn 1/2</span>
                         </div>
 
                         <!-- Board Grid -->
@@ -432,15 +432,15 @@
                                 <span>Puzzle #849</span>
                                 <span>ECF 1650 Rating</span>
                             </div>
-                            <h4 class="font-display text-lg font-bold text-white">The Deflection Sacrifice</h4>
+                            <h4 class="font-display text-lg font-bold text-white">The Deflection &amp; Pin Mate</h4>
                             <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-                                Black's king on <strong>g8</strong> is shielded by the f-pawn and rook. Identify the tactical breakthrough that breaks open the fortress!
+                                Black's king on <strong>g8</strong> is guarded by the f-pawn and rook. Identify how White coordinates the Queen on <strong>b3</strong>, Bishop on <strong>c4</strong>, and Rook on <strong>e1</strong> to strike!
                             </p>
                         </div>
 
                         <!-- Feedback Box -->
-                        <div id="puzzle-feedback" class="p-4 rounded-xl border border-slate-700 bg-navy-800 text-xs sm:text-sm text-slate-200 min-h-[64px] flex items-center transition-all">
-                            Select White's Queen (♕) to calculate the first move.
+                        <div id="puzzle-feedback" class="p-4 rounded-xl border border-slate-700 bg-navy-800 text-xs sm:text-sm text-slate-200 min-h-[68px] flex items-center transition-all">
+                            Select White's Queen on <strong>b3</strong> (♕) to calculate move 1.
                         </div>
 
                         <!-- Moves notation log -->
@@ -970,26 +970,34 @@
 
         // ==========================================
         // MODERN NAVY CHESSBOARD PUZZLE ENGINE
-        // Tactical Problem:
+        // Tactical Problem: 'The Deflection & Pin Mate'
+        //
         // Position:
-        // Black King on g8 (Row 0, Col 6). Black Rook on f8 (Row 0, Col 5).
-        // Black Pawns on f7 (Row 1, Col 5), g7, h7.
-        // White Queen on e4 (Row 4, Col 4). White Rook on f1 (Row 7, Col 5).
+        // Rank 8 (index 0): [ ,  ,  ,  ,  , Rf8, Kg8,  ]
+        // Rank 7 (index 1): [ ,  ,  ,  ,  , pf7, pg7, ph7]
+        // Rank 6 (index 2): [ ,  ,  ,  ,  ,    ,    ,    ]
+        // Rank 5 (index 3): [ ,  , Bc4, ,  ,    ,    ,    ]  (Bc4 at row 3, col 2)
+        // Rank 4 (index 4): [ ,  ,  ,  ,  ,    ,    ,    ]
+        // Rank 3 (index 5): [ , Qb3, ,  ,  ,    ,    ,    ]  (Qb3 at row 5, col 1)
+        // Rank 2 (index 6): [pa2, pb2, ,  ,  ,    , pg2, ph2]
+        // Rank 1 (index 7): [ ,  ,  ,  , Re1,    , Kg1,  ]  (Re1 at row 7, col 4, Kg1 at col 6)
+        //
         // Solution:
-        // 1. Qxf7+! (Q at 4,4 moves to 1,5 capturing Black pawn).
-        // Black plays 1... Rxf7 (R at 0,5 moves to 1,5).
-        // 2. Rxf7# (White Rook at 7,5 moves to 1,5, delivering checkmate).
+        // 1. Qxf7+! (Qb3 at [5,1] to [1,5], capturing f7 pawn with check supported by Bc4).
+        // Black forced reply: 1... Rxf7 (Rf8 from [0,5] captures on [1,5]).
+        // 2. Re8# (Re1 at [7,4] moves to [0,4], checkmating back rank!
+        // Black's rook on f7 is pinned against Kg8 by Bc4, so it cannot block on f8!).
         // ==========================================
 
         const initialPuzzleState = [
-            ['', '', '', '', '', '♜', '♚', ''], // Row 8 (index 0): Rook f8, King g8
-            ['', '', '', '', '', '♟', '♟', '♟'], // Row 7 (index 1): Pawns f7, g7, h7
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '♕', '', '', ''], // Row 4 (index 4): Queen e4
-            ['', '', '', '', '', '', '', ''],
-            ['', '', '', '', '', '♙', '♙', '♙'], // Row 2 (index 6): Pawns f2, g2, h2
-            ['', '', '', '', '', '♖', '♔', '']  // Row 1 (index 7): Rook f1, King g1
+            ['', '', '', '', '', '♜', '♚', ''], // Rank 8: [f8=♜, g8=♚]
+            ['', '', '', '', '', '♟', '♟', '♟'], // Rank 7: [f7=♟, g7=♟, h7=♟]
+            ['', '', '', '', '', '', '', ''],     // Rank 6
+            ['', '', '♗', '', '', '', '', ''],    // Rank 5: [c4=♗]
+            ['', '', '', '', '', '', '', ''],     // Rank 4
+            ['', '♕', '', '', '', '', '', ''],    // Rank 3: [b3=♕]
+            ['♙', '♙', '', '', '', '', '♙', '♙'], // Rank 2: [a2=♙, b2=♙, g2=♙, h2=♙]
+            ['', '', '', '', '♖', '', '♔', '']    // Rank 1: [e1=♖, g1=♔]
         ];
 
         let board = JSON.parse(JSON.stringify(initialPuzzleState));
@@ -1013,11 +1021,11 @@
                     if (piece) {
                         const span = document.createElement('span');
                         span.textContent = piece;
-                        span.className = 'chess-piece';
+                        span.className = 'chess-piece transition-transform hover:scale-110';
                         
-                        // Clean modern piece rendering: White pieces bright, Black pieces slate-900
-                        if (['♕', '♖', '♔', '♙'].includes(piece)) {
-                            span.classList.add('text-white', 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]');
+                        // Clean contrast: White pieces bright, Black pieces crisp dark slate
+                        if (['♕', '♖', '♗', '♔', '♙'].includes(piece)) {
+                            span.classList.add('text-white', 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]');
                         } else {
                             span.classList.add('text-slate-900', 'drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)]');
                         }
@@ -1026,7 +1034,7 @@
 
                     // Selection highlight in brand ice blue
                     if (selectedCell && selectedCell.r === r && selectedCell.c === c) {
-                        tile.classList.add('ring-4', 'ring-brand-ice', 'ring-inset', 'bg-blue-400/40');
+                        tile.classList.add('ring-4', 'ring-brand-ice', 'ring-inset', 'bg-blue-400/30');
                     }
 
                     tile.addEventListener('click', () => onTileClick(r, c));
@@ -1042,57 +1050,68 @@
 
             // If no piece currently selected
             if (!selectedCell) {
-                if (piece && ['♕', '♖'].includes(piece)) {
+                if (step === 0 && piece === '♕' && r === 5 && c === 1) {
                     selectedCell = { r, c, piece };
+                    feedbackEl.innerHTML = '<span class="text-brand-ice">Queen selected! Click destination square <strong>f7</strong> to sacrifice and deflect the rook.</span>';
                     renderPuzzleBoard();
-                } else if (piece) {
-                    feedbackEl.innerHTML = `<span class="text-amber-300">You command White. Select White's Queen (♕) or Rook (♖).</span>`;
+                } else if (step === 2 && piece === '♖' && r === 7 && c === 4) {
+                    selectedCell = { r, c, piece };
+                    feedbackEl.innerHTML = '<span class="text-brand-ice">Rook selected! Infiltrate to <strong>e8</strong> on the back rank to checkmate.</span>';
+                    renderPuzzleBoard();
+                } else if (piece && ['♕', '♖', '♗', '♔', '♙'].includes(piece)) {
+                    if (step === 0) {
+                        feedbackEl.innerHTML = '<span class="text-amber-300">Select the White Queen on <strong>b3</strong> (♕) to launch the attack!</span>';
+                    } else if (step === 2) {
+                        feedbackEl.innerHTML = '<span class="text-amber-300">Select the White Rook on <strong>e1</strong> (♖) to deliver checkmate!</span>';
+                    }
                 }
                 return;
             }
 
-            // Piece already selected, calculate destination move
+            // Piece already selected, process attempted move
             const fromR = selectedCell.r;
             const fromC = selectedCell.c;
             const pieceType = selectedCell.piece;
             selectedCell = null;
 
             if (step === 0) {
-                // Move 1: 1. Qxf7+ (Queen moves from 4,4 to 1,5 capturing Black pawn)
-                if (pieceType === '♕' && fromR === 4 && fromC === 4 && r === 1 && c === 5) {
+                // Move 1: 1. Qxf7+ (White Queen from [5,1] to [1,5])
+                if (pieceType === '♕' && fromR === 5 && fromC === 1 && r === 1 && c === 5) {
                     board[fromR][fromC] = '';
                     board[1][5] = '♕';
                     step = 1;
                     notationEl.innerHTML = '<span class="text-brand-ice font-bold">1. Qxf7+!</span>';
-                    feedbackEl.innerHTML = '<span class="text-emerald-400 font-semibold">Brilliant Queen sacrifice!</span> Deflecting Black\'s defensive rook.';
-                    stepBadge.textContent = 'Turn 2/2';
+                    feedbackEl.innerHTML = '<span class="text-emerald-400 font-semibold">Brilliant Queen sacrifice!</span> Deflecting Black\'s defensive rook...';
+                    stepBadge.textContent = 'Black to move';
                     renderPuzzleBoard();
 
                     // Automatic Black Response: 1... Rxf7
                     setTimeout(() => {
-                        board[0][5] = ''; // Black Rook moves from (0,5)
-                        board[1][5] = '♜'; // captures Queen at (1,5)
+                        board[0][5] = '';  // Black Rook leaves f8 [0,5]
+                        board[1][5] = '♜'; // captures Queen on f7 [1,5]
                         step = 2;
                         notationEl.innerHTML += ' <span class="text-slate-300">1... Rxf7</span>';
-                        feedbackEl.innerHTML = '<span>Black responded with <strong>1... Rxf7</strong>. Deliver the final checkmate!</span>';
+                        stepBadge.textContent = 'Turn 2/2';
+                        feedbackEl.innerHTML = '<span>Black responded with <strong>1... Rxf7</strong>. Now deliver the winning checkmate!</span>';
                         renderPuzzleBoard();
                     }, 800);
                 } else {
-                    feedbackEl.innerHTML = '<span class="text-rose-400 font-medium">Incorrect move.</span> Hint: Shatter Black\'s pawn cover on f7!';
+                    feedbackEl.innerHTML = '<span class="text-rose-400 font-medium">Incorrect move.</span> Hint: Click Queen on b3 and capture on <strong>f7</strong> (1. Qxf7+!)';
                     renderPuzzleBoard();
                 }
             } else if (step === 2) {
-                // Move 2: 2. Rxf7# (White Rook from 7,5 to 1,5)
-                if (pieceType === '♖' && fromR === 7 && fromC === 5 && r === 1 && c === 5) {
+                // Move 2: 2. Re8# (White Rook from [7,4] to [0,4])
+                if (pieceType === '♖' && fromR === 7 && fromC === 4 && r === 0 && c === 4) {
                     board[fromR][fromC] = '';
-                    board[1][5] = '♖';
+                    board[0][4] = '♖';
                     step = 3;
-                    notationEl.innerHTML += ' <span class="text-emerald-400 font-bold">2. Rxf7#</span>';
-                    feedbackEl.innerHTML = '<span class="text-emerald-400 font-bold text-sm">Checkmate! 🏆 Exceptional calculation. Puzzle completed!</span>';
-                    stepBadge.textContent = 'Solved!';
+                    notationEl.innerHTML += ' <span class="text-emerald-400 font-bold">2. Re8#</span>';
+                    feedbackEl.innerHTML = '<span class="text-emerald-400 font-bold text-sm">Checkmate! 🏆 Exceptional calculation. The Black rook on f7 is pinned by the c4 bishop, sealing the back rank!</span>';
+                    stepBadge.className = 'bg-emerald-500/20 px-2.5 py-0.5 rounded text-emerald-400 border border-emerald-500/40 font-bold';
+                    stepBadge.textContent = 'Puzzle Solved!';
                     renderPuzzleBoard();
                 } else {
-                    feedbackEl.innerHTML = '<span class="text-rose-400">Recapture Black\'s rook on f7 to deliver the killing blow!</span>';
+                    feedbackEl.innerHTML = '<span class="text-rose-400">Incorrect destination. Move White\'s rook to <strong>e8</strong> to deliver checkmate!</span>';
                     renderPuzzleBoard();
                 }
             }
@@ -1104,17 +1123,18 @@
             selectedCell = null;
             step = 0;
             notationEl.innerHTML = '<span class="text-slate-500">1. ...</span>';
+            stepBadge.className = 'bg-navy-800 px-2.5 py-0.5 rounded text-brand-ice border border-slate-700 font-semibold';
             stepBadge.textContent = 'Turn 1/2';
-            feedbackEl.innerHTML = 'Select White\'s Queen (♕) to calculate the first move.';
+            feedbackEl.innerHTML = 'Select White\'s Queen on <strong>b3</strong> (♕) to calculate move 1.';
             renderPuzzleBoard();
         });
 
         // Hint Button
         document.getElementById('hint-puzzle-btn').addEventListener('click', () => {
             if (step === 0) {
-                feedbackEl.innerHTML = '<span class="text-brand-ice font-medium">Hint: The Queen can sacrifice on f7 (<strong>Qxf7+</strong>), dragging Black\'s rook away!</span>';
+                feedbackEl.innerHTML = '<span class="text-brand-ice font-medium">Hint: White Queen on <strong>b3</strong> can sacrifice on <strong>f7</strong> (<strong>1. Qxf7+!</strong>), protected by the Bishop on c4!</span>';
             } else if (step === 2) {
-                feedbackEl.innerHTML = '<span class="text-brand-ice font-medium">Hint: Complete the attack with <strong>2. Rxf7#</strong>!</span>';
+                feedbackEl.innerHTML = '<span class="text-brand-ice font-medium">Hint: The Black rook on f7 is pinned against the King by your c4 Bishop! Play <strong>2. Re8#</strong> along the back rank!</span>';
             } else {
                 feedbackEl.innerHTML = '<span class="text-emerald-400">Puzzle already solved! Well done.</span>';
             }
