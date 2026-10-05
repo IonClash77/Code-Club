@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folkestone Chess Club | Modern Chess on the Kent Coast</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#070f1e',
+                            900: '#0a192f',
+                            850: '#0e2342',
+                            800: '#132c54',
+                            700: '#1e3a6a',
+                            600: '#284e88',
+                            100: '#e2e8f0',
+                            50: '#f8fafc',
+                        },
+                        brand: {
+                            blue: '#2563eb',
+                            ice: '#38bdf8',
+                            hover: '#1d4ed8',
+                            surface: '#ffffff',
+                            boardDark: '#1e3a6a',
+                            boardLight: '#f1f5f9',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Space Grotesk"', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'subtle': '0 4px 20px -2px rgba(10, 25, 47, 0.06)',
+                        'card': '0 10px 30px -4px rgba(10, 25, 47, 0.08), 0 2px 6px -1px rgba(10, 25, 47, 0.04)',
+                        'board': '0 20px 40px -10px rgba(10, 25, 47, 0.25), 0 0 0 10px #0a192f, 0 0 0 12px #38bdf8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .board-tile-dark {
+            background-color: #1e3a6a;
+        }
+        .board-tile-light {
+            background-color: #f8fafc;
+        }
+        .chess-piece {
+            transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            cursor: pointer;
+        }
+        .chess-piece:hover {
+            transform: scale(1.15) translateY(-2px);
+        }
+        .grid-pattern {
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(56, 189, 248, 0.06) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(56, 189, 248, 0.06) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-ice selection:text-navy-950">
+
+    <!-- Top Announcement Bar -->
+    <aside aria-label="Announcement" class="bg-navy-950 text-white text-xs py-2 px-4 border-b border-navy-800">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-2.5">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span> Open to Visitors
+                </span>
+                <span class="text-slate-300">Club night every <strong class="text-white font-medium">Wednesday at 7:30 PM</strong> • Folkestone Town Centre</span>
+            </div>
+            <div class="hidden md:flex items-center gap-4 text-slate-400 text-[11px]">
+                <span class="hover:text-brand-ice transition-colors cursor-pointer">ECF Registered Club</span>
+                <span>•</span>
+                <span class="hover:text-brand-ice transition-colors cursor-pointer">Kent County Chess Association</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Clean Navbar -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo & Brand -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center text-brand-ice shadow-md group-hover:bg-brand-blue transition-colors">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <i data-lucide="crown" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="font-display font-bold text-lg sm:text-xl tracking-tight text-navy-950">FOLKESTONE</span>
+                            <span class="text-xs px-1.5 py-0.5 rounded bg-blue-50 text-brand-blue font-bold tracking-wider">CHESS</span>
+                        </div>
+                        <span class="text-[11px] text-slate-500 tracking-wider uppercase block font-medium">Club • Kent Coast</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-600">
+                    <a href="#about" class="hover:text-navy-900 transition-colors">About</a>
+                    <a href="#schedule" class="hover:text-navy-900 transition-colors">Club Nights &amp; Venue</a>
+                    <a href="#puzzle" class="hover:text-navy-900 transition-colors">Daily Puzzle</a>
+                    <a href="#fixtures" class="hover:text-navy-900 transition-colors">Fixtures</a>
+                    <a href="#membership" class="hover:text-navy-900 transition-colors">Membership</a>
+                    <a href="#contact" class="hover:text-navy-900 transition-colors">Location</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <button onclick="openGuestModal()" class="px-4 py-2 text-xs font-semibold text-navy-900 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors">
+                        First Visit Free
+                    </button>
+                    <a href="#join" class="px-4 py-2 text-xs font-semibold text-white bg-navy-900 hover:bg-brand-blue rounded-lg shadow-sm hover:shadow transition-all flex items-center gap-1.5">
+                        <span>Join Us</span>
+                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Hamburger -->
+                <button id="mobile-toggle" aria-label="Toggle navigation" class="lg:hidden p-2 text-navy-900 hover:bg-slate-100 rounded-lg">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 text-sm">
+            <a href="#about" class="block py-2 text-slate-700 font-medium hover:text-brand-blue">About</a>
+            <a href="#schedule" class="block py-2 text-slate-700 font-medium hover:text-brand-blue">Club Nights &amp; Venue</a>
+            <a href="#puzzle" class="block py-2 text-slate-700 font-medium hover:text-brand-blue">Daily Puzzle</a>
+            <a href="#fixtures" class="block py-2 text-slate-700 font-medium hover:text-brand-blue">Fixtures &amp; Matches</a>
+            <a href="#membership" class="block py-2 text-slate-700 font-medium hover:text-brand-blue">Membership Rates</a>
+            <a href="#contact" class="block py-2 text-slate-700 font-medium hover:text-brand-blue">Location &amp; Map</a>
+            <div class="pt-3 flex flex-col gap-2">
+                <button onclick="openGuestModal()" class="w-full py-2.5 text-center text-xs font-semibold text-navy-900 bg-slate-100 rounded-lg">
+                    Register Free Guest Visit
+                </button>
+                <a href="#join" class="w-full py-2.5 text-center text-xs font-semibold text-white bg-navy-900 rounded-lg">
+                    Join Membership
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-navy-950 text-white overflow-hidden py-20 lg:py-28 border-b border-navy-800">
+        <!-- Modern Grid & Glow Backdrops -->
+        <div class="absolute inset-0 grid-pattern pointer-events-none opacity-40"></div>
+        <div class="absolute top-1/4 -right-20 w-96 h-96 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 -left-20 w-80 h-80 bg-brand-ice/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+                
+                <!-- Left Hero Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-850 border border-brand-ice/30 text-brand-ice text-xs font-semibold tracking-wide">
+                        <i data-lucide="compass" class="w-3.5 h-3.5"></i> Kent's Coastal Home for Strategic Minds
+                    </div>
+
+                    <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.12]">
+                        Strategy, Community &amp; Master Play on the <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-ice via-blue-200 to-white">English Channel</span>
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Folkestone's premier chess club welcoming all skill levels. From beginners and casual blitz enthusiasts over coffee to Kent County League competitors and rated players.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
+                        <button onclick="openGuestModal()" class="w-full sm:w-auto px-6 py-3.5 bg-brand-blue hover:bg-brand-hover text-white font-semibold text-sm rounded-xl shadow-lg hover:shadow-blue-500/25 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="user-check" class="w-4 h-4"></i> Visit as a Guest (Free)
+                        </button>
+                        <a href="#puzzle" class="w-full sm:w-auto px-6 py-3.5 bg-navy-850 hover:bg-navy-800 text-slate-200 border border-slate-700/80 font-medium text-sm rounded-xl transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-brand-ice"></i> Solve Daily Puzzle
+                        </a>
+                    </div>
+
+                    <!-- Modern Stats Row -->
+                    <div class="pt-8 border-t border-navy-800 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-xl mx-auto lg:mx-0">
+                        <div class="text-left">
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-white">60+</div>
+                            <div class="text-xs text-slate-400 mt-0.5">Active Members</div>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-brand-ice">Wed</div>
+                            <div class="text-xs text-slate-400 mt-0.5">Weekly Sessions</div>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-white">Div 1 &amp; 3</div>
+                            <div class="text-xs text-slate-400 mt-0.5">Kent League</div>
+                        </div>
+                        <div class="text-left">
+                            <div class="font-display text-2xl sm:text-3xl font-bold text-brand-ice">1928</div>
+                            <div class="text-xs text-slate-400 mt-0.5">Founded Year</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Card: Modern Board Showcase -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="w-full max-w-md bg-navy-900 border border-slate-700/70 rounded-2xl p-5 shadow-2xl backdrop-blur relative">
+                        <div class="flex items-center justify-between pb-3 border-b border-navy-800 text-xs text-slate-300">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                                <span class="font-mono uppercase font-semibold text-white">Match Board 1</span>
+                            </div>
+                            <span class="text-brand-ice font-mono">Kent League 2026/27</span>
+                        </div>
+
+                        <!-- Stylized Modern Graphic Board -->
+                        <div class="mt-4 aspect-square w-full rounded-xl overflow-hidden border-2 border-navy-800 grid grid-cols-8 grid-rows-8 text-xl sm:text-2xl shadow-inner select-none">
+                            <!-- Row 8 -->
+                            <div class="board-tile-light flex items-center justify-center text-navy-950">♜</div>
+                            <div class="board-tile-dark flex items-center justify-center"></div>
+                            <div class="board-tile-light flex items-center justify-center text-navy-950">♝</div>
+                            <div class="board-tile-dark flex items-center justify-center text-navy-950">♛</div>
+                            <div class="board-tile-light flex items-center justify-center text-navy-950">♚</div>
+                            <div class="board-tile-dark flex items-center justify-center"></div>
+                            <div class="board-tile-light flex items-center justify-center text-navy-950">♞</div>
+                            <div class="board-tile-dark flex items-center justify-center text-navy-950">♜</div>
+                            <!-- Row 7 -->
+                            <div class="board-tile-dark flex items-center justify-center text-navy-950">♟</div>
+                            <div class="board-tile-light flex items-center justify-center text-navy-950">♟</div>
+                            <div class="board-tile-dark flex items-center justify-center text-navy-950">♟</div>
+                            <div class="board-tile-light flex items-center justify-center"></div>
+                            <div class="board-tile-dark flex items-center justify-center text-navy-950">♟</div>
+                            <div class="board-tile-light flex items-center justify-center text-navy-950">♟</div>
+                            <div class="board-tile-dark flex items-center justify-center text-navy-950">♟</div>
+                            <div class="board-tile-light flex items-center justify-center text-navy-950">♟</div>
+                            <!-- Row 6 -->
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark flex items-center justify-center text-navy-950">♞</div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <!-- Row 5 -->
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light flex items-center justify-center text-navy-950">♟</div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <!-- Row 4 -->
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark flex items-center justify-center text-white">♙</div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <!-- Row 3 -->
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark flex items-center justify-center text-white">♘</div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light flex items-center justify-center text-white">♘</div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light"></div>
+                            <!-- Row 2 -->
+                            <div class="board-tile-light flex items-center justify-center text-white">♙</div>
+                            <div class="board-tile-dark flex items-center justify-center text-white">♙</div>
+                            <div class="board-tile-light flex items-center justify-center text-white">♙</div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light flex items-center justify-center text-white">♙</div>
+                            <div class="board-tile-dark flex items-center justify-center text-white">♙</div>
+                            <div class="board-tile-light flex items-center justify-center text-white">♙</div>
+                            <div class="board-tile-dark flex items-center justify-center text-white">♙</div>
+                            <!-- Row 1 -->
+                            <div class="board-tile-dark flex items-center justify-center text-white">♖</div>
+                            <div class="board-tile-light"></div>
+                            <div class="board-tile-dark flex items-center justify-center text-white">♗</div>
+                            <div class="board-tile-light flex items-center justify-center text-white">♕</div>
+                            <div class="board-tile-dark flex items-center justify-center text-white">♔</div>
+                            <div class="board-tile-light flex items-center justify-center text-white">♗</div>
+                            <div class="board-tile-dark"></div>
+                            <div class="board-tile-light flex items-center justify-center text-white">♖</div>
+                        </div>
+
+                        <!-- Card Footnote -->
+                        <div class="mt-4 flex items-center justify-between text-xs text-slate-400">
+                            <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-ice"></i> The Leas, Folkestone</span>
+                            <span class="text-white font-medium">White to play: 4. Nf3</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Club Pillars -->
+    <section id="about" class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <span class="text-brand-blue font-semibold text-xs tracking-wider uppercase">Welcome to the Club</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-navy-950 mt-1 mb-4">
+                    A Passionate Chess Community on the South Coast
+                </h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    Folkestone Chess Club has fostered camaraderie and competitive excellence for nearly a century. We are dedicated to creating an inclusive, stimulating environment for everyone from raw beginners to seasoned tournament champions.
+                </p>
+            </div>
+
+            <!-- Pillars Grid -->
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Pillar 1 -->
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-8 hover:border-brand-blue hover:shadow-card transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-navy-900 text-brand-ice flex items-center justify-center mb-6">
+                        <i data-lucide="coffee" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-navy-950 mb-3">Casual &amp; Social Play</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Drop in any Wednesday evening for untimed casual skirmishes, rapid chess, or blitz. Discuss classical games over a friendly drink in a relaxed setting.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-700 font-medium">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> No prior membership needed to visit</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Standard and digital clocks provided</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Welcoming to all adult ages</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 2: Highlighted -->
+                <div class="bg-white border-2 border-brand-blue rounded-2xl p-8 shadow-card relative">
+                    <div class="absolute -top-3.5 right-6 px-3 py-1 bg-brand-blue text-white text-[11px] font-bold tracking-wider uppercase rounded-full">
+                        Competitive
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-blue flex items-center justify-center mb-6">
+                        <i data-lucide="trophy" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-navy-950 mb-3">Kent League Matches</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        We field multiple teams in the Kent County Chess Association (KCCA) across Divisions 1 and 3, plus internal handicap and rapidplay championships.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-700 font-medium">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Officially ECF rated games</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Home &amp; away regional travel</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Annual Folkestone Club Trophy</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-8 hover:border-brand-blue hover:shadow-card transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-navy-900 text-brand-ice flex items-center justify-center mb-6">
+                        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-navy-950 mb-3">Junior Academy &amp; Coaching</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                        Structured early-evening junior sessions focused on tactical fundamentals, basic opening principles, and endgame technique supervised by club leaders.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-700 font-medium">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Ages 7 to 17 welcome</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> DBS checked volunteers</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Tactician puzzle awards</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tactical Puzzle Section -->
+    <section id="puzzle" class="py-20 bg-navy-950 text-white border-b border-navy-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-brand-ice font-semibold text-xs tracking-wider uppercase">Interactive Exercise</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-1">Daily Tactical Puzzle</h2>
+                <p class="text-slate-300 text-sm mt-3">
+                    White to play and execute the decisive combination. Click the white piece and choose its destination square!
+                </p>
+            </div>
+
+            <!-- Puzzle Widget Container -->
+            <div class="max-w-4xl mx-auto bg-navy-900 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl">
+                <div class="grid lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- Left: 8x8 Interactive Board -->
+                    <div class="lg:col-span-7 flex flex-col items-center">
+                        <div class="w-full max-w-[380px] sm:max-w-[420px] flex justify-between items-center text-xs text-slate-300 mb-2.5 px-1 font-mono">
+                            <span class="text-brand-ice font-semibold flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-brand-ice"></span> White to move (Mate in 2)
+                            </span>
+                            <span id="puzzle-step-badge" class="bg-navy-800 px-2 py-0.5 rounded text-slate-300 border border-slate-700">Turn 1/2</span>
+                        </div>
+
+                        <!-- Board Grid -->
+                        <div id="puzzle-board" class="w-full max-w-[380px] sm:max-w-[420px] aspect-square rounded-xl overflow-hidden shadow-board grid grid-cols-8 grid-rows-8 text-2xl sm:text-3xl select-none border-2 border-navy-800">
+                            <!-- Injected by JavaScript -->
+                        </div>
+
+                        <!-- Board Files Notation -->
+                        <div class="w-full max-w-[380px] sm:max-w-[420px] flex justify-between px-3 text-xs text-slate-400 font-mono mt-2">
+                            <span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Tactical Panel & Controls -->
+                    <div class="lg:col-span-5 space-y-5">
+                        
+                        <div class="bg-navy-850 p-5 rounded-2xl border border-slate-700">
+                            <div class="flex items-center justify-between text-xs text-brand-ice font-semibold uppercase tracking-wider mb-1">
+                                <span>Puzzle #849</span>
+                                <span>ECF 1650 Rating</span>
+                            </div>
+                            <h4 class="font-display text-lg font-bold text-white">The Deflection Sacrifice</h4>
+                            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+                                Black's king on <strong>g8</strong> is shielded by the f-pawn and rook. Identify the tactical breakthrough that breaks open the fortress!
+                            </p>
+                        </div>
+
+                        <!-- Feedback Box -->
+                        <div id="puzzle-feedback" class="p-4 rounded-xl border border-slate-700 bg-navy-800 text-xs sm:text-sm text-slate-200 min-h-[64px] flex items-center transition-all">
+                            Select White's Queen (♕) to calculate the first move.
+                        </div>
+
+                        <!-- Moves notation log -->
+                        <div class="bg-navy-850 p-3.5 rounded-xl border border-slate-800 text-xs font-mono">
+                            <span class="text-slate-400 uppercase text-[10px] tracking-wider block mb-1">Moves Recorded</span>
+                            <div id="moves-log-panel" class="text-white flex items-center gap-2">
+                                <span class="text-slate-500">1. ...</span>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex gap-3">
+                            <button id="reset-puzzle-btn" class="flex-1 py-2.5 px-4 bg-navy-800 hover:bg-navy-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-700 flex items-center justify-center gap-1.5 transition">
+                                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset Board
+                            </button>
+                            <button id="hint-puzzle-btn" class="flex-1 py-2.5 px-4 bg-brand-blue hover:bg-brand-hover text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition shadow">
+                                <i data-lucide="lightbulb" class="w-3.5 h-3.5"></i> Show Hint
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Schedule, Venue & Fixtures Section -->
+    <section id="schedule" class="py-20 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-brand-blue font-semibold text-xs tracking-wider uppercase">Club Timetable</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-bold text-navy-950 mt-1">Sessions &amp; Fixtures</h2>
+                </div>
+                <!-- Interactive Tabs Buttons -->
+                <div class="flex items-center gap-2 mt-4 md:mt-0 bg-slate-200/80 p-1.5 rounded-xl">
+                    <button onclick="switchTab('weekly')" id="tab-btn-weekly" class="px-4 py-2 text-xs font-semibold rounded-lg bg-white text-navy-950 shadow-sm transition">
+                        Club Nights
+                    </button>
+                    <button onclick="switchTab('league')" id="tab-btn-league" class="px-4 py-2 text-xs font-semibold rounded-lg text-slate-600 hover:text-navy-950 transition">
+                        Kent League Fixtures
+                    </button>
+                    <button onclick="switchTab('venue')" id="tab-btn-venue" class="px-4 py-2 text-xs font-semibold rounded-lg text-slate-600 hover:text-navy-950 transition">
+                        Venue &amp; Travel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 1: Weekly Schedule -->
+            <div id="tab-content-weekly" class="grid lg:grid-cols-3 gap-6">
+                <!-- Session 1 -->
+                <div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-subtle hover:border-brand-blue transition">
+                    <div class="flex justify-between items-center text-xs text-slate-500 mb-3 font-semibold">
+                        <span class="text-brand-blue font-mono">WEDNESDAYS</span>
+                        <span class="px-2 py-0.5 rounded bg-blue-50 text-brand-blue font-bold text-[11px]">JUNIOR CLUB</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-navy-950">Junior Chess Academy</h3>
+                    <p class="text-xs font-semibold text-slate-500 flex items-center gap-1.5 mt-1.5 mb-4">
+                        <i data-lucide="clock" class="w-4 h-4 text-brand-blue"></i> 6:00 PM – 7:15 PM
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Targeted at players aged 7 to 17. Mini coaching clinics, tactic challenges, and beginner friendly games with experienced tutors.
+                    </p>
+                    <div class="text-xs text-slate-500 border-t border-slate-100 pt-3">
+                        Parents are welcome to spectate in our lounge area.
+                    </div>
+                </div>
+
+                <!-- Session 2 (Featured) -->
+                <div class="bg-white p-7 rounded-2xl border-2 border-brand-blue shadow-card relative">
+                    <div class="flex justify-between items-center text-xs text-slate-500 mb-3 font-semibold">
+                        <span class="text-brand-blue font-mono">WEDNESDAYS</span>
+                        <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold text-[11px]">MAIN NIGHT</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-navy-950">Adults &amp; Open Club Night</h3>
+                    <p class="text-xs font-semibold text-slate-500 flex items-center gap-1.5 mt-1.5 mb-4">
+                        <i data-lucide="clock" class="w-4 h-4 text-brand-blue"></i> 7:30 PM – 10:30 PM
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        The heartbeat of our club. Social rapid games, clock duels, casual untimed matches, and officially scheduled Kent County League games.
+                    </p>
+                    <div class="text-xs text-brand-blue font-semibold border-t border-slate-100 pt-3 flex items-center gap-1">
+                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Guests and visitors welcome with zero fees
+                    </div>
+                </div>
+
+                <!-- Session 3 -->
+                <div class="bg-white p-7 rounded-2xl border border-slate-200 shadow-subtle hover:border-brand-blue transition">
+                    <div class="flex justify-between items-center text-xs text-slate-500 mb-3 font-semibold">
+                        <span class="text-slate-500 font-mono">SATURDAYS (MONTHLY)</span>
+                        <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[11px]">SPECIAL</span>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-navy-950">Rapidplay &amp; Simuls</h3>
+                    <p class="text-xs font-semibold text-slate-500 flex items-center gap-1.5 mt-1.5 mb-4">
+                        <i data-lucide="clock" class="w-4 h-4 text-brand-blue"></i> 10:30 AM – 3:30 PM
+                    </p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Weekend 5-round rapid swiss tournaments and visiting master simultaneous exhibitions with players across Kent and Sussex.
+                    </p>
+                    <div class="text-xs text-slate-500 border-t border-slate-100 pt-3">
+                        Pre-registration recommended for weekend tournaments.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Kent League Fixtures (Initially hidden) -->
+            <div id="tab-content-league" class="hidden space-y-3.5">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-navy-900 text-white flex flex-col items-center justify-center font-display">
+                            <span class="text-[10px] uppercase font-bold text-brand-ice">OCT</span>
+                            <span class="text-base font-bold leading-none">14</span>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-bold text-brand-blue uppercase tracking-wider">KCCA Division 1 • Home</span>
+                            <h4 class="font-display text-base font-bold text-navy-950">Folkestone 'A' vs Canterbury Kings</h4>
+                            <p class="text-xs text-slate-500">6 Boards • 7:30 PM • Main Hall</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full border border-emerald-200">Confirmed</span>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-slate-100 text-navy-950 flex flex-col items-center justify-center font-display border border-slate-200">
+                            <span class="text-[10px] uppercase font-bold text-slate-500">OCT</span>
+                            <span class="text-base font-bold leading-none">21</span>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider">KCCA Division 3 • Away</span>
+                            <h4 class="font-display text-base font-bold text-navy-950">Ashford Knights vs Folkestone 'B'</h4>
+                            <p class="text-xs text-slate-500">4 Boards • 7:30 PM • Ashford Club</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 bg-blue-50 text-brand-blue text-xs font-semibold rounded-full border border-blue-200">Team Selection</span>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-navy-900 text-white flex flex-col items-center justify-center font-display">
+                            <span class="text-[10px] uppercase font-bold text-brand-ice">NOV</span>
+                            <span class="text-base font-bold leading-none">04</span>
+                        </div>
+                        <div>
+                            <span class="text-[11px] font-bold text-brand-blue uppercase tracking-wider">Club Internal Cup</span>
+                            <h4 class="font-display text-base font-bold text-navy-950">Folkestone Autumn Rapid Open</h4>
+                            <p class="text-xs text-slate-500">5 Rounds • 15min + 10s • Club Members &amp; Registered Guests</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 bg-amber-50 text-amber-800 text-xs font-semibold rounded-full border border-amber-200">Entries Open</span>
+                </div>
+            </div>
+
+            <!-- Tab 3: Venue & Travel (Initially hidden) -->
+            <div id="tab-content-venue" class="hidden bg-white rounded-2xl border border-slate-200 p-8 shadow-subtle">
+                <div class="grid lg:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <span class="text-brand-blue font-bold text-xs uppercase tracking-wider">Venue Location</span>
+                        <h3 class="font-display text-2xl font-bold text-navy-950">The Leas Club Room, Folkestone</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Located just steps from Folkestone’s iconic cliff-top Leas promenade, offering comfortable, well-lit, quiet playing spaces with seaside views.
+                        </p>
+                        <div class="space-y-3 pt-2 text-xs text-slate-700">
+                            <div class="flex items-start gap-2.5">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-brand-blue shrink-0 mt-0.5"></i>
+                                <span>The Leas, Folkestone, Kent, CT20 2XL (Ground floor west wing)</span>
+                            </div>
+                            <div class="flex items-start gap-2.5">
+                                <i data-lucide="train" class="w-4 h-4 text-brand-blue shrink-0 mt-0.5"></i>
+                                <span><strong>Folkestone Central Station:</strong> 10–12 minute walk (Direct 54-minute train from London St Pancras via HS1).</span>
+                            </div>
+                            <div class="flex items-start gap-2.5">
+                                <i data-lucide="car" class="w-4 h-4 text-brand-blue shrink-0 mt-0.5"></i>
+                                <span><strong>Parking:</strong> On-street parking free after 6:00 PM along Clifton Crescent and The Leas.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stylized venue card -->
+                    <div class="bg-navy-950 text-white p-6 rounded-xl border border-navy-800 flex flex-col justify-between h-full">
+                        <div>
+                            <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
+                                <span>FOLKESTONE TOWN MAP</span>
+                                <span class="font-mono text-brand-ice">51.0784° N, 1.1689° E</span>
+                            </div>
+                            <div class="h-32 bg-navy-900 rounded-lg border border-navy-800 flex flex-col items-center justify-center p-4 text-center">
+                                <i data-lucide="navigation" class="w-8 h-8 text-brand-ice mb-2"></i>
+                                <span class="text-xs text-slate-200 font-medium">The Leas Club Rooms</span>
+                                <span class="text-[11px] text-slate-400">Overlooking the English Channel</span>
+                            </div>
+                        </div>
+                        <a href="https://maps.google.com/?q=The+Leas+Folkestone" target="_blank" rel="noopener noreferrer" class="mt-4 w-full py-2.5 bg-brand-blue hover:bg-brand-hover text-white text-xs font-semibold rounded-lg text-center flex items-center justify-center gap-1.5 transition">
+                            <i data-lucide="external-link" class="w-3.5 h-3.5"></i> Get Driving / Walking Directions
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Membership & Visitor Policy -->
+    <section id="membership" class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-brand-blue font-semibold text-xs tracking-wider uppercase">Straightforward Pricing</span>
+                <h2 class="font-display text-3xl sm:text-4xl font-bold text-navy-950 mt-1">Membership Options</h2>
+                <p class="text-slate-600 text-sm mt-3">
+                    We welcome all visitors with <strong>two free guest evenings</strong>. Experience a night of chess with us before committing.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
+                
+                <!-- Plan 1: Social -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 flex flex-col justify-between hover:shadow-card transition">
+                    <div>
+                        <h3 class="font-display text-xl font-bold text-navy-950">Social &amp; Casual</h3>
+                        <p class="text-xs text-slate-500 mt-1 mb-6">For casual blitz, friendlies, and club evenings</p>
+                        
+                        <div class="flex items-baseline mb-6">
+                            <span class="font-display text-4xl font-bold text-navy-950">£45</span>
+                            <span class="text-slate-500 text-xs ml-2">/ year</span>
+                        </div>
+
+                        <ul class="space-y-3 text-xs text-slate-700 mb-8">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Access to all Wednesday club nights</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Full use of club boards, sets &amp; clocks</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Internal casual blitz competitions</li>
+                            <li class="flex items-center gap-2 text-slate-400"><i data-lucide="minus" class="w-4 h-4"></i> Kent League competition boards</li>
+                        </ul>
+                    </div>
+                    <button onclick="openGuestModal('Social Membership')" class="w-full py-3 bg-white hover:bg-slate-100 text-navy-900 border border-slate-300 font-semibold text-xs rounded-xl transition">
+                        Select Social Tier
+                    </button>
+                </div>
+
+                <!-- Plan 2: Competitive Full (Featured) -->
+                <div class="bg-navy-950 text-white rounded-2xl p-8 border-2 border-brand-blue shadow-2xl flex flex-col justify-between relative transform md:-translate-y-2">
+                    <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-1 bg-brand-blue text-white text-[11px] font-bold uppercase tracking-wider rounded-full shadow">
+                        Most Popular
+                    </div>
+                    <div>
+                        <h3 class="font-display text-xl font-bold text-white">Full Competitive</h3>
+                        <p class="text-xs text-slate-300 mt-1 mb-6">For Kent County League and tournament players</p>
+                        
+                        <div class="flex items-baseline mb-6">
+                            <span class="font-display text-4xl font-bold text-brand-ice">£80</span>
+                            <span class="text-slate-400 text-xs ml-2">/ year</span>
+                        </div>
+
+                        <ul class="space-y-3 text-xs text-slate-200 mb-8">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-ice"></i> All Casual &amp; Social privileges</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-ice"></i> Kent League board eligibility (Div 1 &amp; 3)</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-ice"></i> Annual Club Championship entry</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-ice"></i> ECF Graded standard time controls</li>
+                        </ul>
+                    </div>
+                    <button onclick="openGuestModal('Competitive Full Membership')" class="w-full py-3 bg-brand-blue hover:bg-brand-hover text-white font-semibold text-xs rounded-xl shadow-md transition">
+                        Select Full Member
+                    </button>
+                </div>
+
+                <!-- Plan 3: Junior / Student -->
+                <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200 flex flex-col justify-between hover:shadow-card transition">
+                    <div>
+                        <h3 class="font-display text-xl font-bold text-navy-950">Junior &amp; Student</h3>
+                        <p class="text-xs text-slate-500 mt-1 mb-6">Under 18s or students in full-time education</p>
+                        
+                        <div class="flex items-baseline mb-6">
+                            <span class="font-display text-4xl font-bold text-navy-950">£30</span>
+                            <span class="text-slate-500 text-xs ml-2">/ year</span>
+                        </div>
+
+                        <ul class="space-y-3 text-xs text-slate-700 mb-8">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Weekly Junior Academy coaching (6 PM)</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Mentoring by senior club players</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Kent Junior Chess Association events</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-brand-blue"></i> Free access to main club nights</li>
+                        </ul>
+                    </div>
+                    <button onclick="openGuestModal('Junior / Student')" class="w-full py-3 bg-white hover:bg-slate-100 text-navy-900 border border-slate-300 font-semibold text-xs rounded-xl transition">
+                        Select Junior / Student
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- RSVP & Contact Form Section -->
+    <section id="contact" class="py-20 bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="join" class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-card">
+                
+                <div class="text-center max-w-xl mx-auto mb-8">
+                    <span class="text-brand-blue font-semibold text-xs uppercase tracking-wider">Join Us on Wednesday</span>
+                    <h3 class="font-display text-2xl sm:text-3xl font-bold text-navy-950 mt-1">Book Your Free Guest Visit</h3>
+                    <p class="text-slate-600 text-xs sm:text-sm mt-2">
+                        Let us know when you’re planning to visit so we can arrange a welcome game matched to your playing strength.
+                    </p>
+                </div>
+
+                <form id="rsvp-form" class="space-y-5">
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-semibold text-navy-950 uppercase tracking-wider mb-1.5" for="form-name">Your Full Name *</label>
+                            <input type="text" id="form-name" required placeholder="e.g. Liam Foster" class="w-full bg-slate-50 border border-slate-300 focus:border-brand-blue focus:bg-white focus:ring-1 focus:ring-brand-blue rounded-xl px-4 py-2.5 text-sm text-slate-800 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-navy-950 uppercase tracking-wider mb-1.5" for="form-email">Email Address *</label>
+                            <input type="email" id="form-email" required placeholder="liam@example.co.uk" class="w-full bg-slate-50 border border-slate-300 focus:border-brand-blue focus:bg-white focus:ring-1 focus:ring-brand-blue rounded-xl px-4 py-2.5 text-sm text-slate-800 outline-none transition">
+                        </div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="block text-xs font-semibold text-navy-950 uppercase tracking-wider mb-1.5" for="form-experience">Estimated Chess Level</label>
+                            <select id="form-experience" class="w-full bg-slate-50 border border-slate-300 focus:border-brand-blue focus:bg-white focus:ring-1 focus:ring-brand-blue rounded-xl px-4 py-2.5 text-sm text-slate-800 outline-none transition">
+                                <option value="Beginner">Beginner (Know basic rules / Just starting)</option>
+                                <option value="Casual" selected>Casual / Intermediate (~1000 - 1500 Online)</option>
+                                <option value="Rated">Rated / Club Standard (1500+ ECF / FIDE)</option>
+                                <option value="Junior">Junior Player (Under 18)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-navy-950 uppercase tracking-wider mb-1.5" for="form-date">Preferred First Wednesday</label>
+                            <input type="text" id="form-date" placeholder="e.g. This upcoming Wednesday" class="w-full bg-slate-50 border border-slate-300 focus:border-brand-blue focus:bg-white focus:ring-1 focus:ring-brand-blue rounded-xl px-4 py-2.5 text-sm text-slate-800 outline-none transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-navy-950 uppercase tracking-wider mb-1.5" for="form-notes">Questions or Notes</label>
+                        <textarea id="form-notes" rows="3" placeholder="Tell us if you'd like to try Kent League matches, need coaching, or have any questions..." class="w-full bg-slate-50 border border-slate-300 focus:border-brand-blue focus:bg-white focus:ring-1 focus:ring-brand-blue rounded-xl px-4 py-2.5 text-sm text-slate-800 outline-none transition resize-none"></textarea>
+                    </div>
+
+                    <div id="rsvp-status-box" class="hidden p-4 rounded-xl text-xs font-medium"></div>
+
+                    <button type="submit" class="w-full py-3.5 bg-navy-900 hover:bg-brand-blue text-white font-semibold text-xs uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
+                        <i data-lucide="send" class="w-4 h-4"></i> Confirm Guest Registration
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Modern Navy Footer -->
+    <footer class="bg-navy-950 text-slate-400 py-14 text-xs border-t border-navy-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-navy-800">
+                
+                <!-- Brand Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-brand-blue flex items-center justify-center text-white">
+                            <i data-lucide="crown" class="w-4 h-4"></i>
+                        </div>
+                        <span class="font-display font-bold text-white text-base tracking-tight">FOLKESTONE CHESS</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-xs">
+                        Founded in 1928. Fostering chess on the Kent coast through friendly club evenings, junior coaching, and competitive county league teams.
+                    </p>
+                </div>
+
+                <!-- Navigation -->
+                <div class="space-y-2.5">
+                    <span class="text-white font-bold uppercase tracking-wider block text-xs">Navigation</span>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="hover:text-white transition">About Folkestone Chess</a></li>
+                        <li><a href="#schedule" class="hover:text-white transition">Club Nights &amp; Junior Academy</a></li>
+                        <li><a href="#puzzle" class="hover:text-white transition">Today's Tactical Puzzle</a></li>
+                        <li><a href="#fixtures" class="hover:text-white transition">Kent League Fixtures</a></li>
+                    </ul>
+                </div>
+
+                <!-- Affiliations -->
+                <div class="space-y-2.5">
+                    <span class="text-white font-bold uppercase tracking-wider block text-xs">Affiliations</span>
+                    <ul class="space-y-2">
+                        <li>English Chess Federation (ECF)</li>
+                        <li>Kent County Chess Association (KCCA)</li>
+                        <li>Kent Junior Chess Association</li>
+                        <li>Southern Counties Chess Union</li>
+                    </ul>
+                </div>
+
+                <!-- Location Quick Card -->
+                <div class="space-y-2.5">
+                    <span class="text-white font-bold uppercase tracking-wider block text-xs">Club Evenings</span>
+                    <p class="text-slate-300">
+                        The Leas, Folkestone, Kent<br>
+                        Wednesdays from 6:00 PM (Juniors)<br>
+                        7:30 PM (Adults &amp; League)
+                    </p>
+                    <span class="inline-block px-2.5 py-1 rounded bg-navy-850 text-brand-ice border border-slate-700 text-[11px] font-mono">
+                        No Membership Required to Visit
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- Bottom legal bar -->
+            <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500">
+                <p>&copy; 2026 Folkestone Chess Club. All rights reserved. English Channel, Kent.</p>
+                <div class="flex items-center gap-6 mt-4 sm:mt-0">
+                    <a href="#home" class="hover:text-brand-ice transition">Back to Top ↑</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Guest Visit Modal -->
+    <div id="guest-modal" class="fixed inset-0 z-50 hidden bg-navy-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl p-6 sm:p-8 shadow-2xl relative border border-slate-200">
+            <button onclick="closeGuestModal()" aria-label="Close modal" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-navy-950 rounded-lg">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <div class="mb-5">
+                <span class="text-brand-blue font-bold text-xs uppercase tracking-wider">First 2 Nights Free</span>
+                <h3 class="font-display text-xl font-bold text-navy-950 mt-1">Visit Folkestone Chess Club</h3>
+                <p class="text-xs text-slate-500 mt-1">No subscription or equipment required. Simply pop by or let us know you are coming.</p>
+            </div>
+
+            <form id="modal-form" class="space-y-3.5">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1" for="modal-name">Your Name</label>
+                    <input type="text" id="modal-name" required placeholder="Sarah Jenkins" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 outline-none focus:border-brand-blue">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1" for="modal-email">Email Address</label>
+                    <input type="email" id="modal-email" required placeholder="sarah@example.com" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 outline-none focus:border-brand-blue">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1" for="modal-level">Experience</label>
+                    <select id="modal-level" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3.5 py-2 text-xs text-slate-800 outline-none focus:border-brand-blue">
+                        <option>Complete Beginner</option>
+                        <option selected>Casual / Intermediate</option>
+                        <option>Experienced League Player</option>
+                        <option>Junior Parent / Student</option>
+                    </select>
+                </div>
+                <div id="modal-status" class="hidden p-3 rounded-lg text-xs"></div>
+                <button type="submit" class="w-full py-2.5 bg-brand-blue hover:bg-brand-hover text-white text-xs font-semibold rounded-lg shadow transition">
+                    Confirm Visit Reservation
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Mobile Nav Drawer Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileToggle && mobileMenu) {
+            mobileToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
+
+        // Tab Switching for Timetable/Fixtures/Venue
+        function switchTab(tabId) {
+            const tabs = ['weekly', 'league', 'venue'];
+            tabs.forEach(t => {
+                const content = document.getElementById(`tab-content-${t}`);
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (t === tabId) {
+                    content.classList.remove('hidden');
+                    btn.classList.add('bg-white', 'text-navy-950', 'shadow-sm');
+                    btn.classList.remove('text-slate-600');
+                } else {
+                    content.classList.add('hidden');
+                    btn.classList.remove('bg-white', 'text-navy-950', 'shadow-sm');
+                    btn.classList.add('text-slate-600');
+                }
+            });
+        }
+
+        // Guest Registration Modal Helpers
+        const guestModal = document.getElementById('guest-modal');
+        function openGuestModal(tierContext = '') {
+            guestModal.classList.remove('hidden');
+            if (tierContext) {
+                document.getElementById('modal-level').value = tierContext.includes('Junior') ? 'Junior Parent / Student' : (tierContext.includes('Competitive') ? 'Experienced League Player' : 'Casual / Intermediate');
+            }
+        }
+        function closeGuestModal() {
+            guestModal.classList.add('hidden');
+        }
+
+        // Modal Form Submission
+        document.getElementById('modal-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('modal-name').value;
+            const status = document.getElementById('modal-status');
+            status.classList.remove('hidden');
+            status.className = 'p-3 rounded-lg text-xs bg-emerald-50 text-emerald-800 border border-emerald-200';
+            status.innerHTML = `<strong>Splendid, ${name}!</strong> You're registered for this Wednesday at The Leas. See you at 7:30 PM!`;
+            setTimeout(() => {
+                closeGuestModal();
+                status.classList.add('hidden');
+            }, 2500);
+        });
+
+        // RSVP Main Form Submission
+        document.getElementById('rsvp-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const box = document.getElementById('rsvp-status-box');
+            box.classList.remove('hidden');
+            box.className = 'p-4 rounded-xl text-xs bg-emerald-50 text-emerald-800 border border-emerald-200';
+            box.innerHTML = `<strong>Thank you, ${name}!</strong> Your guest reservation is received. Our club secretary will send an introductory pack to your email shortly.`;
+            document.getElementById('rsvp-form').reset();
+        });
+
+        // ==========================================
+        // MODERN NAVY CHESSBOARD PUZZLE ENGINE
+        // Tactical Problem:
+        // Position:
+        // Black King on g8 (Row 0, Col 6). Black Rook on f8 (Row 0, Col 5).
+        // Black Pawns on f7 (Row 1, Col 5), g7, h7.
+        // White Queen on e4 (Row 4, Col 4). White Rook on f1 (Row 7, Col 5).
+        // Solution:
+        // 1. Qxf7+! (Q at 4,4 moves to 1,5 capturing Black pawn).
+        // Black plays 1... Rxf7 (R at 0,5 moves to 1,5).
+        // 2. Rxf7# (White Rook at 7,5 moves to 1,5, delivering checkmate).
+        // ==========================================
+
+        const initialPuzzleState = [
+            ['', '', '', '', '', '♜', '♚', ''], // Row 8 (index 0): Rook f8, King g8
+            ['', '', '', '', '', '♟', '♟', '♟'], // Row 7 (index 1): Pawns f7, g7, h7
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '♕', '', '', ''], // Row 4 (index 4): Queen e4
+            ['', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '♙', '♙', '♙'], // Row 2 (index 6): Pawns f2, g2, h2
+            ['', '', '', '', '', '♖', '♔', '']  // Row 1 (index 7): Rook f1, King g1
+        ];
+
+        let board = JSON.parse(JSON.stringify(initialPuzzleState));
+        let selectedCell = null;
+        let step = 0; // 0 = start, 1 = Q move played, 2 = Black rook recaptured, 3 = Solved
+
+        const boardEl = document.getElementById('puzzle-board');
+        const feedbackEl = document.getElementById('puzzle-feedback');
+        const notationEl = document.getElementById('moves-log-panel');
+        const stepBadge = document.getElementById('puzzle-step-badge');
+
+        function renderPuzzleBoard() {
+            boardEl.innerHTML = '';
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const isDark = (r + c) % 2 === 1;
+                    const tile = document.createElement('div');
+                    tile.className = `flex items-center justify-center relative ${isDark ? 'board-tile-dark' : 'board-tile-light'}`;
+                    
+                    const piece = board[r][c];
+                    if (piece) {
+                        const span = document.createElement('span');
+                        span.textContent = piece;
+                        span.className = 'chess-piece';
+                        
+                        // Clean modern piece rendering: White pieces bright, Black pieces slate-900
+                        if (['♕', '♖', '♔', '♙'].includes(piece)) {
+                            span.classList.add('text-white', 'drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]');
+                        } else {
+                            span.classList.add('text-slate-900', 'drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)]');
+                        }
+                        tile.appendChild(span);
+                    }
+
+                    // Selection highlight in brand ice blue
+                    if (selectedCell && selectedCell.r === r && selectedCell.c === c) {
+                        tile.classList.add('ring-4', 'ring-brand-ice', 'ring-inset', 'bg-blue-400/40');
+                    }
+
+                    tile.addEventListener('click', () => onTileClick(r, c));
+                    boardEl.appendChild(tile);
+                }
+            }
+        }
+
+        function onTileClick(r, c) {
+            if (step === 3) return; // Already solved
+
+            const piece = board[r][c];
+
+            // If no piece currently selected
+            if (!selectedCell) {
+                if (piece && ['♕', '♖'].includes(piece)) {
+                    selectedCell = { r, c, piece };
+                    renderPuzzleBoard();
+                } else if (piece) {
+                    feedbackEl.innerHTML = `<span class="text-amber-300">You command White. Select White's Queen (♕) or Rook (♖).</span>`;
+                }
+                return;
+            }
+
+            // Piece already selected, calculate destination move
+            const fromR = selectedCell.r;
+            const fromC = selectedCell.c;
+            const pieceType = selectedCell.piece;
+            selectedCell = null;
+
+            if (step === 0) {
+                // Move 1: 1. Qxf7+ (Queen moves from 4,4 to 1,5 capturing Black pawn)
+                if (pieceType === '♕' && fromR === 4 && fromC === 4 && r === 1 && c === 5) {
+                    board[fromR][fromC] = '';
+                    board[1][5] = '♕';
+                    step = 1;
+                    notationEl.innerHTML = '<span class="text-brand-ice font-bold">1. Qxf7+!</span>';
+                    feedbackEl.innerHTML = '<span class="text-emerald-400 font-semibold">Brilliant Queen sacrifice!</span> Deflecting Black\'s defensive rook.';
+                    stepBadge.textContent = 'Turn 2/2';
+                    renderPuzzleBoard();
+
+                    // Automatic Black Response: 1... Rxf7
+                    setTimeout(() => {
+                        board[0][5] = ''; // Black Rook moves from (0,5)
+                        board[1][5] = '♜'; // captures Queen at (1,5)
+                        step = 2;
+                        notationEl.innerHTML += ' <span class="text-slate-300">1... Rxf7</span>';
+                        feedbackEl.innerHTML = '<span>Black responded with <strong>1... Rxf7</strong>. Deliver the final checkmate!</span>';
+                        renderPuzzleBoard();
+                    }, 800);
+                } else {
+                    feedbackEl.innerHTML = '<span class="text-rose-400 font-medium">Incorrect move.</span> Hint: Shatter Black\'s pawn cover on f7!';
+                    renderPuzzleBoard();
+                }
+            } else if (step === 2) {
+                // Move 2: 2. Rxf7# (White Rook from 7,5 to 1,5)
+                if (pieceType === '♖' && fromR === 7 && fromC === 5 && r === 1 && c === 5) {
+                    board[fromR][fromC] = '';
+                    board[1][5] = '♖';
+                    step = 3;
+                    notationEl.innerHTML += ' <span class="text-emerald-400 font-bold">2. Rxf7#</span>';
+                    feedbackEl.innerHTML = '<span class="text-emerald-400 font-bold text-sm">Checkmate! 🏆 Exceptional calculation. Puzzle completed!</span>';
+                    stepBadge.textContent = 'Solved!';
+                    renderPuzzleBoard();
+                } else {
+                    feedbackEl.innerHTML = '<span class="text-rose-400">Recapture Black\'s rook on f7 to deliver the killing blow!</span>';
+                    renderPuzzleBoard();
+                }
+            }
+        }
+
+        // Reset Button
+        document.getElementById('reset-puzzle-btn').addEventListener('click', () => {
+            board = JSON.parse(JSON.stringify(initialPuzzleState));
+            selectedCell = null;
+            step = 0;
+            notationEl.innerHTML = '<span class="text-slate-500">1. ...</span>';
+            stepBadge.textContent = 'Turn 1/2';
+            feedbackEl.innerHTML = 'Select White\'s Queen (♕) to calculate the first move.';
+            renderPuzzleBoard();
+        });
+
+        // Hint Button
+        document.getElementById('hint-puzzle-btn').addEventListener('click', () => {
+            if (step === 0) {
+                feedbackEl.innerHTML = '<span class="text-brand-ice font-medium">Hint: The Queen can sacrifice on f7 (<strong>Qxf7+</strong>), dragging Black\'s rook away!</span>';
+            } else if (step === 2) {
+                feedbackEl.innerHTML = '<span class="text-brand-ice font-medium">Hint: Complete the attack with <strong>2. Rxf7#</strong>!</span>';
+            } else {
+                feedbackEl.innerHTML = '<span class="text-emerald-400">Puzzle already solved! Well done.</span>';
+            }
+        });
+
+        // Initial Board Render
+        renderPuzzleBoard();
+    </script>
+</body>
+</html>
