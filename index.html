@@ -22,14 +22,14 @@
                     colors: {
                         midnight: {
                             950: '#080e18',
-                            900: '#0d1829', /* Primary grounding deep navy */
+                            900: '#0d1829', /* Primary navy anchor */
                             850: '#122038', /* Card surfaces & felt backing */
                             800: '#182a47',
                             700: '#233a61',
                             600: '#344f7e',
                         },
                         surface: {
-                            bg: '#f1f5f9',    /* Light, calm slate foundation */
+                            bg: '#f1f5f9',    /* Light slate background */
                             card: '#ffffff',
                             muted: '#e2e8f0',
                             border: '#cbd5e1'
@@ -110,20 +110,24 @@
                 <div class="flex flex-col">
                     <div class="flex items-center gap-1.5">
                         <span class="font-display font-extrabold text-xl tracking-tight text-white leading-none">The Dice Roll</span>
-                        <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-midnight-800 text-slate-300 border border-midnight-700 font-semibold uppercase">Vault</span>
+                        <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-midnight-800 text-slate-300 border border-midnight-700 font-semibold uppercase">Rules &amp; Arena</span>
                     </div>
-                    <span class="text-[11px] text-slate-400 font-medium mt-0.5">Classic &amp; Modern Dice Compendium</span>
+                    <span class="text-[11px] text-slate-400 font-medium mt-0.5">Classic, Social &amp; Solo Dice Games</span>
                 </div>
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+            <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-300">
                 <a href="#tray" class="hover:text-white transition flex items-center gap-1.5 text-coral font-bold">
                     <span class="w-1.5 h-1.5 rounded-full bg-coral"></span>
-                    Roll Arena
+                    Play Tray
                 </a>
-                <a href="#library" class="hover:text-white transition">Games Directory</a>
-                <a href="#quick-finder" class="hover:text-white transition">Game Matcher</a>
+                <a href="#library" class="hover:text-white transition">All Games</a>
+                <a href="#solo-zone" class="hover:text-white transition flex items-center gap-1 text-teal">
+                    <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+                    Solo Hub
+                </a>
+                <a href="#probability" class="hover:text-white transition">Probability</a>
                 <a href="#scorecards" class="hover:text-white transition">Scorecards</a>
             </nav>
 
@@ -137,48 +141,47 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-midnight-900 text-white py-16 sm:py-24 border-b border-midnight-800 relative overflow-hidden">
-        <div class="absolute -right-20 -top-20 w-96 h-96 bg-midnight-800/40 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -left-20 bottom-0 w-80 h-80 bg-coral/10 rounded-full blur-3xl pointer-events-none"></div>
-
+    <section class="bg-midnight-900 text-white py-14 sm:py-20 border-b border-midnight-800 relative overflow-hidden">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
             <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-midnight-800/90 border border-midnight-700 text-xs font-semibold text-slate-300 mb-6 shadow-sm">
                 <span class="w-2 h-2 rounded-full bg-coral animate-pulse"></span>
-                <span>No boards • No screens • Just numbered cubes and table laughs</span>
+                <span>Numbered cubes • Scrap paper • Zero screen clutter</span>
             </div>
 
             <h1 class="font-display text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
                 Six simple faces. <br>
-                A lifetime of <span class="text-transparent bg-clip-text bg-gradient-to-r from-coral via-amber-300 to-teal">tabletop games.</span>
+                A universe of <span class="text-transparent bg-clip-text bg-gradient-to-r from-coral via-amber-300 to-teal">analog games.</span>
             </h1>
 
-            <p class="mt-6 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
-                Clear, fluff-free rules to push-your-luck classics, bluffing wagers, and cozy solo dice games. Roll directly in our virtual midnight arena or grab a cup of real dice.
+            <p class="mt-5 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+                Plain-English rules for timeless push-your-luck classics, tense bluffing duels, and five brand-new original solo dice quests. Roll directly in the midnight tray or grab real dice.
             </p>
 
             <!-- Quick Filter Chips -->
             <div class="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs font-medium">
-                <span class="text-slate-400 mr-1">Quick Filters:</span>
-                <button onclick="filterByTag('Push-Your-Luck')" class="px-3 py-1.5 rounded-xl bg-midnight-800 hover:bg-midnight-700 text-slate-200 border border-midnight-700 transition">Push-Your-Luck</button>
-                <button onclick="filterByTag('Pub & Bluff')" class="px-3 py-1.5 rounded-xl bg-midnight-800 hover:bg-midnight-700 text-slate-200 border border-midnight-700 transition">Bluffing &amp; Social</button>
-                <button onclick="filterByTag('Cozy Solo')" class="px-3 py-1.5 rounded-xl bg-midnight-800 hover:bg-midnight-700 text-slate-200 border border-midnight-700 transition">Cozy &amp; Solo</button>
-                <button onclick="filterByTag('Quick & Easy')" class="px-3 py-1.5 rounded-xl bg-midnight-800 hover:bg-midnight-700 text-slate-200 border border-midnight-700 transition">Fast 10-Min</button>
+                <span class="text-slate-400 mr-1">Quick Jump:</span>
+                <button onclick="filterCategory('Solo Games')" class="px-3.5 py-1.5 rounded-xl bg-teal/20 text-teal border border-teal/40 hover:bg-teal/30 transition font-semibold flex items-center gap-1.5">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 5 New Solo Games
+                </button>
+                <button onclick="filterCategory('Push-Your-Luck')" class="px-3 py-1.5 rounded-xl bg-midnight-800 hover:bg-midnight-700 text-slate-200 border border-midnight-700 transition">Push-Your-Luck</button>
+                <button onclick="filterCategory('Social & Bluffing')" class="px-3 py-1.5 rounded-xl bg-midnight-800 hover:bg-midnight-700 text-slate-200 border border-midnight-700 transition">Bluffing &amp; Social</button>
+                <button onclick="filterCategory('Classic Strategy')" class="px-3 py-1.5 rounded-xl bg-midnight-800 hover:bg-midnight-700 text-slate-200 border border-midnight-700 transition">Classic Strategy</button>
             </div>
         </div>
     </section>
 
     <!-- INTERACTIVE ROLL TRAY -->
-    <section id="tray" class="py-16 sm:py-20 bg-surface-bg border-b border-surface-border">
+    <section id="tray" class="py-14 sm:py-18 bg-surface-bg border-b border-surface-border">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
             
-            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
                 <div>
-                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-coral">Interactive Tool</span>
-                    <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-midnight-900 mt-1">Midnight Roll Arena</h2>
-                    <p class="text-xs sm:text-sm text-slate-600 mt-0.5">Click any die to lock or unlock it between rolls. Press <strong class="text-midnight-900">Spacebar</strong> to roll.</p>
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-coral">Virtual Felt Arena</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-midnight-900 mt-0.5">Midnight Roll Tray</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-0.5">Click any die to hold or release. Press <strong class="text-midnight-900">Spacebar</strong> to roll.</p>
                 </div>
                 
-                <!-- Controls: Mode Toggle & Audio Toggle -->
+                <!-- Controls: Mode Selector & Audio -->
                 <div class="flex items-center gap-2.5 flex-wrap">
                     <button onclick="toggleAudio()" id="audio-toggle-btn" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-white hover:bg-slate-100 text-midnight-900 border border-surface-border shadow-sm transition" title="Toggle Dice Audio">
                         <i id="audio-icon" data-lucide="volume-2" class="w-3.5 h-3.5 text-coral"></i>
@@ -186,8 +189,9 @@
                     </button>
 
                     <div class="flex items-center p-1 bg-midnight-900 rounded-xl text-xs font-semibold text-slate-300 w-fit shadow-sm">
-                        <button id="mode-5d-btn" onclick="setRollMode(5)" class="px-3.5 py-1.5 rounded-lg bg-coral text-white font-bold transition shadow-sm">5 Dice (Yacht / Farkle)</button>
-                        <button id="mode-2d-btn" onclick="setRollMode(2)" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">2 Dice (Pig / Craps)</button>
+                        <button id="mode-5d-btn" onclick="setRollMode(5)" class="px-3 py-1.5 rounded-lg bg-coral text-white font-bold transition shadow-sm">5 Dice (Yacht / Trench)</button>
+                        <button id="mode-4d-btn" onclick="setRollMode(4)" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition">4 Dice (Lantern / Courier)</button>
+                        <button id="mode-2d-btn" onclick="setRollMode(2)" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition">2 Dice (Pig / Box)</button>
                     </div>
                 </div>
             </div>
@@ -211,13 +215,13 @@
                 </div>
 
                 <!-- Action Controls -->
-                <div class="mt-8 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto relative z-10">
+                <div class="mt-7 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto relative z-10">
                     <button id="roll-button" onclick="executeRoll()" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-coral hover:bg-coral-hover text-white font-bold text-sm transition-all shadow-md flex items-center justify-center gap-2">
                         <i data-lucide="dices" class="w-4 h-4 text-white"></i>
                         <span>Roll Dice (Space)</span>
                     </button>
                     <button onclick="resetDiceTray()" class="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-midnight-800 hover:bg-midnight-700 text-slate-300 font-semibold text-sm border border-midnight-700 transition">
-                        Reset / Unhold All
+                        Unhold All / Reset
                     </button>
                 </div>
 
@@ -226,80 +230,147 @@
         </div>
     </section>
 
-    <!-- QUICK GAME FINDER -->
-    <section id="quick-finder" class="py-16 border-b border-surface-border bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+    <!-- INTERACTIVE SOLO GAMES COMPANION HUB -->
+    <section id="solo-zone" class="py-14 sm:py-18 bg-white border-b border-surface-border">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
             
-            <div class="text-center max-w-xl mx-auto mb-10">
-                <span class="text-xs font-mono font-bold uppercase tracking-wider text-teal">Decision Engine</span>
-                <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-midnight-900 mt-1">What should we play tonight?</h2>
-                <p class="text-slate-600 text-xs sm:text-sm mt-1">Pick your group and your mood — we'll match the right game instantly.</p>
-            </div>
-
-            <!-- Quiz Steps -->
-            <div class="grid sm:grid-cols-3 gap-4">
-                
-                <!-- Step 1: Players -->
-                <div class="bg-surface-bg p-5 rounded-2xl border border-surface-border">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-midnight-900 mb-3 flex items-center gap-1.5">
-                        <i data-lucide="users" class="w-3.5 h-3.5 text-coral"></i> 1. Who is playing?
-                    </label>
-                    <div class="space-y-2" id="finder-players">
-                        <button onclick="selectFinderOption('player', '1')" class="finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition" data-group="player" data-val="1">Just Me (Solo)</button>
-                        <button onclick="selectFinderOption('player', '2')" class="finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition" data-group="player" data-val="2">2 Players (Duel)</button>
-                        <button onclick="selectFinderOption('player', '3+')" class="finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition" data-group="player" data-val="3+">3 to 6+ Players (Group)</button>
-                    </div>
-                </div>
-
-                <!-- Step 2: Time -->
-                <div class="bg-surface-bg p-5 rounded-2xl border border-surface-border">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-midnight-900 mb-3 flex items-center gap-1.5">
-                        <i data-lucide="clock" class="w-3.5 h-3.5 text-amber"></i> 2. How much time?
-                    </label>
-                    <div class="space-y-2" id="finder-time">
-                        <button onclick="selectFinderOption('time', 'short')" class="finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition" data-group="time" data-val="short">Quick (5–15 mins)</button>
-                        <button onclick="selectFinderOption('time', 'medium')" class="finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition" data-group="time" data-val="medium">Standard (20–30 mins)</button>
-                    </div>
-                </div>
-
-                <!-- Step 3: Vibe -->
-                <div class="bg-surface-bg p-5 rounded-2xl border border-surface-border">
-                    <label class="block text-xs font-bold uppercase tracking-wider text-midnight-900 mb-3 flex items-center gap-1.5">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-teal"></i> 3. What vibe?
-                    </label>
-                    <div class="space-y-2" id="finder-vibe">
-                        <button onclick="selectFinderOption('vibe', 'push')" class="finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition" data-group="vibe" data-val="push">Greedy Risk &amp; Laughs</button>
-                        <button onclick="selectFinderOption('vibe', 'bluff')" class="finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition" data-group="vibe" data-val="bluff">Bluffing &amp; Social</button>
-                        <button onclick="selectFinderOption('vibe', 'calm')" class="finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition" data-group="vibe" data-val="calm">Calm &amp; Methodical</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Quiz Output Card -->
-            <div id="finder-result" class="mt-6 p-6 rounded-2xl bg-midnight-900 border border-midnight-800 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
                 <div>
-                    <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-coral">Recommended Match</span>
-                    <h3 id="finder-result-title" class="font-display text-xl font-bold text-white mt-0.5">Select your preferences above</h3>
-                    <p id="finder-result-desc" class="text-xs text-slate-300 mt-1">Tap a few choices to filter down to the most fitting game.</p>
+                    <span class="text-xs font-mono font-bold uppercase tracking-wider text-teal">Original Solo Lab</span>
+                    <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-midnight-900 mt-0.5">Interactive Solo Companions</h2>
+                    <p class="text-slate-600 text-xs sm:text-sm mt-0.5">Play two of our original solo titles directly on screen, or use them as digital trackers alongside real dice.</p>
                 </div>
-                <button id="finder-view-btn" onclick="openSelectedFinderGame()" class="hidden px-5 py-2.5 rounded-xl bg-coral hover:bg-coral-hover text-white text-xs font-bold transition shrink-0 shadow">
-                    Read Rules &rarr;
-                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="openGameModal('six-stone-garden')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-midnight-900 hover:bg-midnight-800 text-white transition flex items-center gap-1.5">
+                        <i data-lucide="book-open" class="w-3.5 h-3.5 text-coral"></i>
+                        <span>Six-Stone Rules</span>
+                    </button>
+                    <button onclick="openGameModal('lanternkeeper')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-midnight-900 hover:bg-midnight-800 text-white transition flex items-center gap-1.5">
+                        <i data-lucide="book-open" class="w-3.5 h-3.5 text-teal"></i>
+                        <span>Lanternkeeper Rules</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Two Solo Companions -->
+            <div class="grid lg:grid-cols-2 gap-8 items-start">
+                
+                <!-- Solo Game 1: Six-Stone Garden Interactive Grid -->
+                <div class="bg-surface-bg p-6 sm:p-7 rounded-3xl border border-surface-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+                            <div>
+                                <h3 class="font-display font-extrabold text-lg text-midnight-900">Six-Stone Garden</h3>
+                                <p class="text-xs text-slate-500">3×3 Spatial Harmony Puzzle (3 D6)</p>
+                            </div>
+                            <span id="garden-score-badge" class="px-3 py-1 rounded-xl bg-teal/20 text-teal font-mono font-bold text-xs border border-teal/30">
+                                Harmony: 0 pts
+                            </span>
+                        </div>
+
+                        <p class="text-xs text-slate-600 my-4 leading-relaxed">
+                            Click any cell to type a rolled stone (1–6). Complete all 9 spaces to evaluate straights (+5), triples (+4), odd/even parity (+3), and symmetry (+2) across 8 lines.
+                        </p>
+
+                        <!-- 3x3 Grid Matrix -->
+                        <div class="max-w-[260px] mx-auto my-3 grid grid-cols-3 gap-2.5 p-3 rounded-2xl bg-midnight-900 border-2 border-midnight-800 shadow-inner">
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+                            <input type="number" min="1" max="6" oninput="evalGarden()" class="garden-cell w-16 h-16 rounded-xl bg-white text-midnight-900 font-display font-extrabold text-2xl text-center focus:outline-none focus:ring-2 focus:ring-coral shadow-sm" placeholder="·">
+                        </div>
+
+                        <div id="garden-breakdown" class="text-[11px] text-slate-500 font-mono text-center pt-2">
+                            Fill cells with numbers 1 to 6 to calculate harmony.
+                        </div>
+                    </div>
+
+                    <div class="mt-5 pt-4 border-t border-slate-200 flex gap-2">
+                        <button onclick="resetGarden()" class="w-full py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs transition">
+                            Clear Garden
+                        </button>
+                        <button onclick="fillSampleGarden()" class="w-full py-2 rounded-xl bg-midnight-900 hover:bg-midnight-800 text-white font-bold text-xs transition">
+                            Load Master Layout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Solo Game 2: Lanternkeeper Interactive Beacon Tracker -->
+                <div class="bg-surface-bg p-6 sm:p-7 rounded-3xl border border-surface-border shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+                            <div>
+                                <h3 class="font-display font-extrabold text-lg text-midnight-900">Lanternkeeper Tracker</h3>
+                                <p class="text-xs text-slate-500">8 Coast Beacons &amp; Fog Survival (4 D6)</p>
+                            </div>
+                            <span id="beacon-lit-count" class="px-3 py-1 rounded-xl bg-coral/20 text-coral font-mono font-bold text-xs border border-coral/30">
+                                0 / 8 Lit
+                            </span>
+                        </div>
+
+                        <p class="text-xs text-slate-600 my-4 leading-relaxed">
+                            Track your illuminated beacons and resource gauges. Click beacon circles to toggle them lit or dark as you roll your pairs.
+                        </p>
+
+                        <!-- 8 Beacons Path -->
+                        <div class="my-4">
+                            <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block mb-2">Coastal Lantern Path</span>
+                            <div class="grid grid-cols-4 sm:grid-cols-8 gap-2" id="beacon-rack">
+                                <!-- Generated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Resource Trackers -->
+                        <div class="grid grid-cols-2 gap-3 mt-4">
+                            <div class="bg-white p-3.5 rounded-2xl border border-surface-border">
+                                <span class="text-[10px] font-mono uppercase text-slate-400 font-bold block mb-1">Oil Flask Gauge</span>
+                                <div class="flex items-center justify-between">
+                                    <button onclick="adjustOil(-1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">-</button>
+                                    <span id="oil-display" class="font-mono text-xl font-extrabold text-amber">15</span>
+                                    <button onclick="adjustOil(1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">+</button>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-3.5 rounded-2xl border border-surface-border">
+                                <span class="text-[10px] font-mono uppercase text-slate-400 font-bold block mb-1">Fog Counter (Max 3)</span>
+                                <div class="flex items-center justify-between">
+                                    <button onclick="adjustFog(-1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">-</button>
+                                    <span id="fog-display" class="font-mono text-xl font-extrabold text-slate-800">0 / 3</span>
+                                    <button onclick="adjustFog(1)" class="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-5 pt-4 border-t border-slate-200 flex gap-2">
+                        <button onclick="resetLanternkeeper()" class="w-full py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs transition">
+                            Reset Journey
+                        </button>
+                    </div>
+                </div>
+
             </div>
 
         </div>
     </section>
 
     <!-- THE GAMES DIRECTORY -->
-    <section id="library" class="py-16 sm:py-20 border-b border-surface-border bg-surface-bg">
+    <section id="library" class="py-14 sm:py-20 border-b border-surface-border bg-surface-bg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
                 <div>
                     <span class="text-xs font-mono font-bold uppercase tracking-wider text-midnight-700">The Compendium</span>
-                    <h2 class="font-display text-3xl font-extrabold text-midnight-900 mt-1">Rules Directory</h2>
-                    <p class="text-xs sm:text-sm text-slate-600 mt-0.5">Click any card to read clear, plain-language rules.</p>
+                    <h2 class="font-display text-3xl font-extrabold text-midnight-900 mt-0.5">Rules Directory</h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mt-0.5">Click any card to read clear, plain-language rules, setup, and tactics.</p>
                 </div>
 
                 <!-- Search Input and Random Discovery -->
@@ -317,11 +388,11 @@
 
             <!-- Category Filter Tabs -->
             <div class="flex flex-wrap items-center gap-2 mb-8" id="category-tabs">
-                <button onclick="filterCategory('All')" class="cat-pill active px-4 py-2 rounded-xl text-xs font-bold bg-midnight-900 text-white shadow transition">All Games</button>
+                <button onclick="filterCategory('All')" class="cat-pill active px-4 py-2 rounded-xl text-xs font-bold bg-midnight-900 text-white shadow transition">All Games (12)</button>
+                <button onclick="filterCategory('Solo Games')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-surface-border hover:border-midnight-800 transition">Solo Games (5)</button>
                 <button onclick="filterCategory('Push-Your-Luck')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-surface-border hover:border-midnight-800 transition">Push-Your-Luck</button>
-                <button onclick="filterCategory('Pub & Bluff')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-surface-border hover:border-midnight-800 transition">Bluffing &amp; Social</button>
-                <button onclick="filterCategory('Cozy Solo')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-surface-border hover:border-midnight-800 transition">Cozy &amp; Solo</button>
-                <button onclick="filterCategory('Quick & Easy')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-surface-border hover:border-midnight-800 transition">Quick &amp; Easy</button>
+                <button onclick="filterCategory('Social & Bluffing')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-surface-border hover:border-midnight-800 transition">Social &amp; Bluffing</button>
+                <button onclick="filterCategory('Classic Strategy')" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-surface-border hover:border-midnight-800 transition">Classic Strategy</button>
             </div>
 
             <!-- Games Grid -->
@@ -332,32 +403,119 @@
         </div>
     </section>
 
+    <!-- 2D6 PROBABILITY MATRIX -->
+    <section id="probability" class="py-14 sm:py-18 bg-white border-b border-surface-border">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="text-center max-w-xl mx-auto mb-10">
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-amber">Dice Mathematics</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-midnight-900 mt-0.5">The Math of 36 Combinations</h2>
+                <p class="text-slate-600 text-xs sm:text-sm mt-1">When rolling two six-sided dice, the sum distribution forms a perfect triangular probability curve.</p>
+            </div>
+
+            <!-- Visual Odds Graph -->
+            <div class="bg-surface-bg p-6 sm:p-8 rounded-3xl border border-surface-border">
+                <div class="grid grid-cols-11 gap-1.5 sm:gap-3 items-end h-48 sm:h-56 pb-2 border-b border-slate-300">
+                    <!-- 2 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">2.8%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 16%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">2</span>
+                    </div>
+                    <!-- 3 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">5.6%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 33%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">3</span>
+                    </div>
+                    <!-- 4 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">8.3%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 50%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">4</span>
+                    </div>
+                    <!-- 5 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">11.1%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 66%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">5</span>
+                    </div>
+                    <!-- 6 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">13.9%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 83%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">6</span>
+                    </div>
+                    <!-- 7 (Peak) -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[11px] font-mono font-bold text-coral">16.7%</span>
+                        <div class="w-full bg-coral rounded-t-lg transition-all shadow-md" style="height: 100%;"></div>
+                        <span class="font-mono text-xs font-bold text-coral">7</span>
+                    </div>
+                    <!-- 8 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">13.9%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 83%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">8</span>
+                    </div>
+                    <!-- 9 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">11.1%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 66%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">9</span>
+                    </div>
+                    <!-- 10 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">8.3%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 50%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">10</span>
+                    </div>
+                    <!-- 11 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">5.6%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 33%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">11</span>
+                    </div>
+                    <!-- 12 -->
+                    <div class="flex flex-col items-center gap-1.5 h-full justify-end">
+                        <span class="text-[10px] font-mono text-slate-500">2.8%</span>
+                        <div class="w-full bg-midnight-800 rounded-t-lg transition-all" style="height: 16%;"></div>
+                        <span class="font-mono text-xs font-bold text-midnight-900">12</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-600 gap-2">
+                    <span><strong>Key takeaway:</strong> 7 is rolled exactly 1 out of every 6 throws (6/36 combinations).</span>
+                    <span class="font-mono text-[11px] text-slate-500">Pairs probability: 6 in 36 (16.67%)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- SCORECARDS & REFERENCE -->
-    <section id="scorecards" class="py-16 border-b border-surface-border bg-white">
+    <section id="scorecards" class="py-14 sm:py-18 border-b border-surface-border bg-surface-bg">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
             
             <div class="text-center max-w-xl mx-auto mb-10">
-                <span class="text-xs font-mono font-bold uppercase tracking-wider text-coral">Printables &amp; Sheets</span>
-                <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-midnight-900 mt-1">Tabletop Trackers</h2>
-                <p class="text-slate-600 text-xs sm:text-sm mt-1">Simple scoring companions you can print out or copy to scrap paper.</p>
+                <span class="text-xs font-mono font-bold uppercase tracking-wider text-coral">Scoring Aids</span>
+                <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-midnight-900 mt-0.5">Tabletop Trackers</h2>
+                <p class="text-slate-600 text-xs sm:text-sm mt-0.5">Printable references and scrap paper guides for your game nights.</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
-                
                 <!-- Yacht Scorecard -->
-                <div class="bg-surface-bg p-6 rounded-3xl border border-surface-border shadow-sm flex flex-col justify-between">
+                <div class="bg-white p-6 rounded-3xl border border-surface-border shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-display font-bold text-lg text-midnight-900">Yacht / Yahtzee Sheet</h3>
                             <span class="text-xs font-mono px-2 py-0.5 rounded bg-midnight-900 text-white font-bold">12 Rounds</span>
                         </div>
                         <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                            Standard 12-category progression including upper section ones-through-sixes and lower combos (Full House, Straights, Four-of-a-Kind, Yacht, and Choice).
+                            Standard 12-category progression including upper section (1s through 6s) and lower combos (Full House, Straights, Four of a Kind, Yacht, Choice).
                         </p>
-                        <div class="bg-white rounded-2xl p-4 border border-surface-border font-mono text-[11px] text-slate-600 space-y-2">
-                            <div class="flex justify-between pb-1 border-b border-slate-100"><span>Upper Section (1s to 6s)</span><span class="font-bold text-midnight-900">Bonus if &ge; 63</span></div>
-                            <div class="flex justify-between pb-1 border-b border-slate-100"><span>Full House</span><span class="font-bold text-midnight-900">25 pts</span></div>
-                            <div class="flex justify-between pb-1 border-b border-slate-100"><span>Small / Large Straight</span><span class="font-bold text-midnight-900">30 / 40 pts</span></div>
+                        <div class="bg-surface-bg rounded-2xl p-4 border border-surface-border font-mono text-[11px] text-slate-600 space-y-2">
+                            <div class="flex justify-between pb-1 border-b border-slate-200"><span>Upper Section (1s to 6s)</span><span class="font-bold text-midnight-900">Bonus if &ge; 63</span></div>
+                            <div class="flex justify-between pb-1 border-b border-slate-200"><span>Full House</span><span class="font-bold text-midnight-900">25 pts</span></div>
+                            <div class="flex justify-between pb-1 border-b border-slate-200"><span>Small / Large Straight</span><span class="font-bold text-midnight-900">30 / 40 pts</span></div>
                             <div class="flex justify-between"><span>Yacht (5 of a kind)</span><span class="font-bold text-coral">50 pts</span></div>
                         </div>
                     </div>
@@ -368,7 +526,7 @@
                 </div>
 
                 <!-- Pig Race Tracker -->
-                <div class="bg-surface-bg p-6 rounded-3xl border border-surface-border shadow-sm flex flex-col justify-between">
+                <div class="bg-white p-6 rounded-3xl border border-surface-border shadow-sm flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="font-display font-bold text-lg text-midnight-900">Pig: Race to 100 Tracker</h3>
@@ -377,10 +535,10 @@
                         <p class="text-xs text-slate-600 leading-relaxed mb-4">
                             Keep tally of each player’s cumulative score. Remind players of the core rule: rolling a 1 wipes your turn pot, but banking secures it forever.
                         </p>
-                        <div class="bg-white rounded-2xl p-4 border border-surface-border font-mono text-[11px] text-slate-600 space-y-2">
-                            <div class="flex justify-between pb-1 border-b border-slate-100"><span>Target Goal</span><span class="font-bold text-midnight-900">100 Points</span></div>
-                            <div class="flex justify-between pb-1 border-b border-slate-100"><span>Roll a 1</span><span class="font-bold text-coral">Turn Bust (0 pts)</span></div>
-                            <div class="flex justify-between pb-1 border-b border-slate-100"><span>Roll 2 through 6</span><span class="font-bold text-midnight-900">Add to Turn Pot</span></div>
+                        <div class="bg-surface-bg rounded-2xl p-4 border border-surface-border font-mono text-[11px] text-slate-600 space-y-2">
+                            <div class="flex justify-between pb-1 border-b border-slate-200"><span>Target Goal</span><span class="font-bold text-midnight-900">100 Points</span></div>
+                            <div class="flex justify-between pb-1 border-b border-slate-200"><span>Roll a 1</span><span class="font-bold text-coral">Turn Bust (0 pts)</span></div>
+                            <div class="flex justify-between pb-1 border-b border-slate-200"><span>Roll 2 through 6</span><span class="font-bold text-midnight-900">Add to Turn Pot</span></div>
                             <div class="flex justify-between"><span>Bank Action</span><span class="font-bold text-teal">Secured to Total</span></div>
                         </div>
                     </div>
@@ -389,7 +547,6 @@
                         <span>Print Pig Tally Card</span>
                     </button>
                 </div>
-
             </div>
 
         </div>
@@ -416,15 +573,16 @@
                 </div>
                 <span class="font-display font-bold text-sm text-white">The Dice Roll</span>
                 <span class="text-midnight-800">/</span>
-                <span class="text-slate-400">Simple unplugged dice games for everyone.</span>
+                <span class="text-slate-400">Tactile, unplugged dice games for everyone.</span>
             </div>
             <div class="flex items-center gap-6 text-slate-400 font-semibold">
-                <a href="#tray" class="hover:text-coral transition">Roll Arena</a>
-                <a href="#library" class="hover:text-white transition">Compendium</a>
-                <a href="#quick-finder" class="hover:text-white transition">Matcher</a>
+                <a href="#tray" class="hover:text-coral transition">Play Tray</a>
+                <a href="#library" class="hover:text-white transition">All Games</a>
+                <a href="#solo-zone" class="hover:text-teal transition">Solo Hub</a>
+                <a href="#probability" class="hover:text-white transition">Probability</a>
                 <a href="#scorecards" class="hover:text-white transition">Scorecards</a>
             </div>
-            <p class="text-slate-500">&copy; 2026 The Dice Roll. Public domain dice games.</p>
+            <p class="text-slate-500">&copy; 2026 The Dice Roll. Open tabletop rules compendium.</p>
         </div>
     </footer>
 
@@ -432,8 +590,128 @@
         // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Game Database
+        // Complete Game Database (including the 5 original Solo titles)
         const GAMES = [
+            // 5 ORIGINAL SOLO TITLES
+            {
+                id: 'lanternkeeper',
+                title: 'Lanternkeeper',
+                subtitle: 'Beacon Clearing in the Coastal Fog',
+                category: 'Solo Games',
+                players: 'Solo (1 Player)',
+                dice: '4 Dice',
+                time: '15 mins',
+                difficulty: 'Medium',
+                summary: 'Split 4 dice into two pairs: one sum to light beacons (1–8), and one difference to manage your oil supply against rolling fog.',
+                objective: 'Light all 8 coastal beacons before your oil flask runs dry.',
+                equipment: '4 standard dice (D6), paper, and pencil.',
+                rules: [
+                    'Draw 8 beacon circles numbered 1 to 8. Track your Oil Flask (starts at 15) and Fog Counter (starts at 0).',
+                    'Each turn, roll all 4 dice. Split them into two pairs: Pair A (Distance/Sum) and Pair B (Oil/Difference).',
+                    'Pair A: Sum the two dice. If it matches an unlit beacon (1–8), light it! If the sum is 9, 10, 11, or 12, add +1 to your Fog Counter.',
+                    'Pair B: Subtract the lower die from the higher die. Deduct that difference from your Oil Flask. If you roll doubles in Pair B, oil cost is 0 and you clear 1 Fog!',
+                    'The Fog Toll: If the Fog Counter ever reaches 3, a heavy mist hits: lose 3 Oil immediately and reset Fog to 0.',
+                    'Victory: Light all 8 beacons while your Oil Flask is still at 1 or more. Remaining oil is your score!'
+                ],
+                tip: 'Look for doubles in Pair B to conserve oil, especially when Pair A can hit difficult high beacons like 7 or 8.'
+            },
+            {
+                id: 'six-stone-garden',
+                title: 'Six-Stone Garden',
+                subtitle: 'The 3×3 Tactile Zen Puzzle',
+                category: 'Solo Games',
+                players: 'Solo (1 Player)',
+                dice: '3 Dice',
+                time: '12 mins',
+                difficulty: 'Easy',
+                summary: 'Roll 3 dice, choose one stone for your 3×3 grid, and balance lines of straights, triples, parity, and symmetry.',
+                objective: 'Achieve maximum harmony points (24+ pts) across 8 lines.',
+                equipment: '3 dice (D6), pencil, and a 3×3 grid.',
+                rules: [
+                    'Draw a 3×3 grid (9 empty squares). The game lasts 9 rounds until the grid is full.',
+                    'Roll 3 dice each turn. Select exactly one die value to write into any open cell on your board.',
+                    'Discard Rule: If the two unchosen dice form a matching pair, your stone has a hairline fracture: mark a dot on that cell (-2 pts penalty).',
+                    'Scoring (evaluate all 3 rows, 3 columns, and 2 diagonals):',
+                    '• Straight (consecutive numbers, e.g. 2-3-4): +5 pts per line.',
+                    '• Three of a Kind (e.g. 5-5-5): +4 pts per line.',
+                    '• Parity (all three odd or all three even): +3 pts per line.',
+                    '• Symmetry (outer numbers match, e.g. 4-1-4): +2 pts per line.',
+                    'Sum all lines and deduct 2 points per cracked stone.'
+                ],
+                tip: 'Corners participate in three lines each (row, column, diagonal). Prioritize placing versatile values in corner slots.'
+            },
+            {
+                id: 'deep-trench',
+                title: 'Deep Trench: Dive 300',
+                subtitle: 'Submarine Descent & Oxygen Pressure',
+                category: 'Solo Games',
+                players: 'Solo (1 Player)',
+                dice: '5 Dice',
+                time: '12 mins',
+                difficulty: 'Medium',
+                summary: 'Push your luck down to 300 meters and back. Balance engine movement against life-support leaks and hull pressure cracks.',
+                objective: 'Descend to 300m and safely return to the surface (0m) before Oxygen or Hull collapse.',
+                equipment: '5 dice (D6), paper gauge (0–300m Depth, 20 Oxygen, 3 Hull hearts).',
+                rules: [
+                    'Track Depth (0m), Oxygen (starts at 20), and Hull Integrity (3 hearts).',
+                    'Roll all 5 dice each cycle. Dice results dictate actions:',
+                    '• Engines (2, 4, 6): Move your sub 10 meters per pip in your chosen direction (Descent or Ascent).',
+                    '• Oxygen Scrubber (1): You must spend 1 Oxygen for every 1 rolled.',
+                    '• Pressure Cracks (5): Rolling two or more 5s in a single throw causes 1 Hull damage (♥).',
+                    '• Ballast Vent (3): Choose to either travel 30m OR vent emergency tanks to restore +1 Oxygen.',
+                    'Push-Your-Luck: You may lock up to 2 movement dice and reroll the rest once per turn, but must resolve all newly rolled 1s and 5s!',
+                    'Turn End: Deduct 1 Oxygen simply for breathing. Reach 300m, then resurface to 0m to win.'
+                ],
+                tip: 'Never push your luck rerolling 3 or more dice when your hull is down to 1 heart.'
+            },
+            {
+                id: 'cobblestone-courier',
+                title: 'Cobblestone Courier',
+                subtitle: 'Route Planning & Town Delivery Clock',
+                category: 'Solo Games',
+                players: 'Solo (1 Player)',
+                dice: '4 Dice',
+                time: '15 mins',
+                difficulty: 'Medium',
+                summary: 'Deliver 5 packages across a diamond town map within a strict 12-hour clock using movement and delivery dice.',
+                objective: 'Deliver all 5 parcels before Hour 12 strikes.',
+                equipment: '4 dice (D6), paper, and pencil.',
+                rules: [
+                    'Draw a diamond map with North Market, South Harbour, East Mill, West Gate, and Central Square.',
+                    'Deliveries needed: North (requires 4+), South (requires 2-), East (requires Even), West (requires Odd), Center (requires any Double).',
+                    'Each turn represents 1 Hour. Roll all 4 dice.',
+                    'Spend dice to move: Center roads cost any die (1–6). Outer rough cobblestone roads require a die showing 3, 4, 5, or 6.',
+                    'Spend remaining unspent dice to make deliveries matching your current hub’s requirement.',
+                    'Advance the clock +1 Hour at the end of each turn. Deliver all 5 packages within 12 hours to win!'
+                ],
+                tip: 'Travel through the Central Square often—it offers cheaper 1-pip movement thresholds to pivot across town.'
+            },
+            {
+                id: 'the-last-hearth',
+                title: 'The Last Hearth',
+                subtitle: 'Blizzard Survival & Ember Engine',
+                category: 'Solo Games',
+                players: 'Solo (1 Player)',
+                dice: '6 Dice',
+                time: '15 mins',
+                difficulty: 'Hard',
+                summary: 'Survive a 7-day winter gale by managing gale winds, kindling, chopping firewood, and banking glowing embers.',
+                objective: 'Keep the hearth embers burning above 0 through the end of Day 7.',
+                equipment: '6 dice (D6), paper (Embers gauge: starts at 10, max 20; Woodpile: starts at 6 logs).',
+                rules: [
+                    'Each of the 7 Days has three phases:',
+                    '1. The Blizzard Blows: Roll 2 dice. Higher die reduces Embers by that amount (gale wind). Lower die reduces Woodpile logs by that amount (frozen wood), unless Embers are &ge; 12.',
+                    '2. Worker Dice: Roll the remaining 4 dice. Assign them to actions:',
+                    '• Kindle Fire: Any dice totaling 7 or more adds +4 Embers.',
+                    '• Chop Wood: Any matching pair adds +2 Logs to your woodpile.',
+                    '• Feed Log: Spend 1 Log from woodpile + 1 die to add that die’s face value directly to Embers.',
+                    '3. Bank Fire: If Embers hit 0, the fire dies and you lose. If &gt; 20, excess is lost. Advance to next day.',
+                    'Victory: Survive through Day 7 with the fire still lit!'
+                ],
+                tip: 'Keeping Embers at 12 or above protects your woodpile from freezing storms in Phase 1.'
+            },
+
+            // CLASSIC MULTIPLAYER & SOCIAL TITLES
             {
                 id: 'farkle',
                 title: 'Farkle',
@@ -445,7 +723,7 @@
                 difficulty: 'Easy',
                 summary: 'Roll 6 dice, bank scoring combinations, and decide whether to risk your turn points on remaining dice.',
                 objective: 'First player to reach 10,000 total banked points.',
-                equipment: '6 six-sided dice, paper, and pencil.',
+                equipment: '6 dice (D6), paper, and pencil.',
                 rules: [
                     'Roll all 6 dice. Set aside at least one scoring die (Single 1 = 100, Single 5 = 50, Three of a Kind = Face × 100, with three 1s = 1,000).',
                     'You may choose to bank your accumulated turn points, or roll the remaining un-scored dice.',
@@ -458,7 +736,7 @@
                 id: 'liars-dice',
                 title: "Liar's Dice",
                 subtitle: 'Perudo / Dudo',
-                category: 'Pub & Bluff',
+                category: 'Social & Bluffing',
                 players: '2–6 Players',
                 dice: '5 Dice per player + Cups',
                 time: '20 mins',
@@ -478,7 +756,7 @@
                 id: 'shut-the-box',
                 title: 'Shut the Box',
                 subtitle: 'Traditional Pub Partition Game',
-                category: 'Cozy Solo',
+                category: 'Classic Strategy',
                 players: '1–4 Players',
                 dice: '2 Dice',
                 time: '10 mins',
@@ -514,29 +792,10 @@
                 tip: 'Math optimal play suggests banking once your turn pot reaches 20 points, unless the leader is nearing 100.'
             },
             {
-                id: 'ship-captain-crew',
-                title: 'Ship, Captain & Crew',
-                subtitle: '6-5-4 / Cargo',
-                category: 'Quick & Easy',
-                players: '2–8 Players',
-                dice: '5 Dice',
-                time: '10 mins',
-                difficulty: 'Easy',
-                summary: 'Three rolls to secure your Ship (6), Captain (5), and Crew (4) in exact order, then total your Cargo.',
-                objective: 'Qualify and score the highest Cargo (the remaining 2 dice).',
-                equipment: '5 six-sided dice.',
-                rules: [
-                    'You have up to 3 rolls per turn. You must set aside a 6 (Ship) first.',
-                    'Only once you have a 6 can you keep a 5 (Captain), then a 4 (Crew).',
-                    'Once 6-5-4 are secured, your remaining 2 dice represent your Cargo sum (max 12). Highest cargo takes the round.'
-                ],
-                tip: 'If you roll a 6 and a 5 on your first throw, keep both and use your remaining throws searching for the 4.'
-            },
-            {
                 id: 'yahtzee',
                 title: 'Yacht / Yahtzee',
                 subtitle: 'The 1938 Five-Dice Classic',
-                category: 'Cozy Solo',
+                category: 'Classic Strategy',
                 players: '1–6 Players',
                 dice: '5 Dice',
                 time: '25 mins',
@@ -552,16 +811,35 @@
                 tip: 'Never waste your Chance box early. Keep it as a safety valve for broken late-game straight attempts.'
             },
             {
+                id: 'ship-captain-crew',
+                title: 'Ship, Captain & Crew',
+                subtitle: '6-5-4 / Cargo',
+                category: 'Push-Your-Luck',
+                players: '2–8 Players',
+                dice: '5 Dice',
+                time: '10 mins',
+                difficulty: 'Easy',
+                summary: 'Three rolls to secure your Ship (6), Captain (5), and Crew (4) in exact order, then total your Cargo.',
+                objective: 'Qualify and score the highest Cargo (the remaining 2 dice).',
+                equipment: '5 six-sided dice.',
+                rules: [
+                    'You have up to 3 rolls per turn. You must set aside a 6 (Ship) first.',
+                    'Only once you have a 6 can you keep a 5 (Captain), then a 4 (Crew).',
+                    'Once 6-5-4 are secured, your remaining 2 dice represent your Cargo sum (max 12). Highest cargo takes the round.'
+                ],
+                tip: 'If you roll a 6 and a 5 on your first throw, keep both and use your remaining throws searching for the 4.'
+            },
+            {
                 id: 'cee-lo',
                 title: 'Cee-Lo',
                 subtitle: '4-5-6 / Street & Tavern Dice',
-                category: 'Pub & Bluff',
+                category: 'Social & Bluffing',
                 players: '2–6 Players',
                 dice: '3 Dice',
                 time: '10 mins',
                 difficulty: 'Easy',
                 summary: 'Throw 3 dice into a bowl. Instant win on 4-5-6, instant loss on 1-2-3, or establish a point with pairs.',
-                objective: 'Beat the other players with higher combinations.',
+                objective: 'Beat other players with higher combinations.',
                 equipment: '3 dice and a shallow tray or bowl.',
                 rules: [
                     'Roll all 3 dice. Instant combinations: 4-5-6 (Auto-win), 1-2-3 (Auto-loss), Trips (High automatic win).',
@@ -569,82 +847,6 @@
                     'Keep rolling until an outcome is established, then the next player attempts to beat it.'
                 ],
                 tip: 'Pairs are common (around 44% of throws). A point of 6 is usually very difficult to beat.'
-            },
-            {
-                id: 'martinetti',
-                title: 'Martinetti',
-                subtitle: 'Ohio / The 1 to 12 Track Race',
-                category: 'Quick & Easy',
-                players: '2–6 Players',
-                dice: '3 Dice',
-                time: '15 mins',
-                difficulty: 'Easy',
-                summary: 'Race your token along a 1 to 12 track and back by combining individual dice faces and sums.',
-                objective: 'First player to travel from 1 up to 12 and back down to 1.',
-                equipment: '3 dice, tokens, and a paper track numbered 1 to 12.',
-                rules: [
-                    'Roll 3 dice. You must advance sequentially (starting with 1).',
-                    'You can use individual dice, or sums of two or three dice to match your next required number.',
-                    'If your roll lets you advance, move your token and check if remaining dice match the subsequent number in the same turn.'
-                ],
-                tip: 'Track combinations that satisfy two consecutive numbers in a single throw to leapfrog your opponents.'
-            },
-            {
-                id: 'drop-dead',
-                title: 'Drop Dead',
-                subtitle: 'The Grim Elimination Game',
-                category: 'Push-Your-Luck',
-                players: '2–8 Players',
-                dice: '5 Dice',
-                time: '15 mins',
-                difficulty: 'Easy',
-                summary: 'Roll 5 dice. Any roll showing a 2 or 5 earns zero points and those dice "drop dead" and are removed.',
-                objective: 'Accumulate the highest score before all your dice are eliminated.',
-                equipment: '5 dice and paper.',
-                rules: [
-                    'Roll all active dice. If NO 2s or 5s appear, sum all dice and add to your score.',
-                    'If ANY 2s or 5s appear, you score 0 for that roll and all 2s and 5s are removed from the game.',
-                    'Continue rolling your remaining dice until all 5 have dropped dead. Pass to the next player.'
-                ],
-                tip: 'With 5 dice, there is only about a 13% chance of rolling no 2s or 5s. Enjoy high-scoring rolls when they happen!'
-            },
-            {
-                id: 'midnight',
-                title: 'Midnight',
-                subtitle: '1-4-24 / Classic Tavern Rule',
-                category: 'Quick & Easy',
-                players: '2–6 Players',
-                dice: '6 Dice',
-                time: '10 mins',
-                difficulty: 'Easy',
-                summary: 'Keep at least one die per throw. You must lock a 1 and a 4 to qualify, then maximize the remaining 4 dice.',
-                objective: 'Score the highest sum on your 4 non-qualifier dice (max 24).',
-                equipment: '6 dice.',
-                rules: [
-                    'Roll 6 dice, keeping at least one die per roll until all 6 are locked.',
-                    'To qualify, your final hand MUST include at least one 1 and one 4.',
-                    'If you lack either a 1 or 4, your score is zero. If qualified, sum the other four dice (max 6+6+6+6 = 24).'
-                ],
-                tip: 'Lock 6s when you see them, but do not ignore a 1 or 4 if you are nearing your final throws.'
-            },
-            {
-                id: 'tenzi',
-                title: 'Tenzi',
-                subtitle: 'Frenetic Speed Rolling',
-                category: 'Quick & Easy',
-                players: '2–6 Players',
-                dice: '10 Dice per player',
-                time: '5 mins',
-                difficulty: 'Easy',
-                summary: 'Everyone rolls simultaneously as fast as possible to get all 10 dice showing the same number.',
-                objective: 'First player to roll all 10 dice to the same number and shout "TENZI!".',
-                equipment: '10 dice per person.',
-                rules: [
-                    'All players roll their 10 dice at the same time upon "Go!".',
-                    'Choose a number that appeared most frequently and set those dice aside.',
-                    'Rapidly re-roll remaining dice until all 10 show your chosen target number.'
-                ],
-                tip: 'Pick whichever face has the most matches on your initial throw, regardless of the value.'
             }
         ];
 
@@ -716,7 +918,7 @@
             }
         }
 
-        // Roll Tray Logic
+        // Roll Tray State & Logic
         let rollMode = 5;
         let dice = [
             { val: 1, held: false },
@@ -740,11 +942,15 @@
             trayRollsCountEl.textContent = 'Rolls: 0';
 
             const btn5 = document.getElementById('mode-5d-btn');
+            const btn4 = document.getElementById('mode-4d-btn');
             const btn2 = document.getElementById('mode-2d-btn');
 
+            [btn5, btn4, btn2].forEach(b => {
+                b.className = 'px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition';
+            });
+
             if (num === 5) {
-                btn5.className = 'px-3.5 py-1.5 rounded-lg bg-coral text-white font-bold transition shadow-sm';
-                btn2.className = 'px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition';
+                btn5.className = 'px-3 py-1.5 rounded-lg bg-coral text-white font-bold transition shadow-sm';
                 dice = [
                     { val: 1, held: false },
                     { val: 2, held: false },
@@ -752,9 +958,16 @@
                     { val: 4, held: false },
                     { val: 5, held: false }
                 ];
+            } else if (num === 4) {
+                btn4.className = 'px-3 py-1.5 rounded-lg bg-coral text-white font-bold transition shadow-sm';
+                dice = [
+                    { val: 2, held: false },
+                    { val: 3, held: false },
+                    { val: 4, held: false },
+                    { val: 5, held: false }
+                ];
             } else {
-                btn2.className = 'px-3.5 py-1.5 rounded-lg bg-coral text-white font-bold transition shadow-sm';
-                btn5.className = 'px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition';
+                btn2.className = 'px-3 py-1.5 rounded-lg bg-coral text-white font-bold transition shadow-sm';
                 dice = [
                     { val: 3, held: false },
                     { val: 4, held: false }
@@ -929,7 +1142,139 @@
             }
         });
 
-        // Directory Rendering
+        // 1. Six-Stone Garden Interactive Grid Logic
+        function evalGarden() {
+            const inputs = Array.from(document.querySelectorAll('.garden-cell'));
+            const vals = inputs.map(inp => parseInt(inp.value, 10));
+            const breakdownEl = document.getElementById('garden-breakdown');
+            const scoreBadgeEl = document.getElementById('garden-score-badge');
+
+            // Check if filled
+            const filledCount = vals.filter(v => !isNaN(v) && v >= 1 && v <= 6).length;
+            if (filledCount < 9) {
+                scoreBadgeEl.textContent = `Progress: ${filledCount} / 9`;
+                breakdownEl.textContent = 'Keep filling cells (1–6) to calculate harmony.';
+                return;
+            }
+
+            // Define the 8 lines: 3 rows, 3 cols, 2 diags
+            const lines = [
+                [vals[0], vals[1], vals[2]], // Row 1
+                [vals[3], vals[4], vals[5]], // Row 2
+                [vals[6], vals[7], vals[8]], // Row 3
+                [vals[0], vals[3], vals[6]], // Col 1
+                [vals[1], vals[4], vals[7]], // Col 2
+                [vals[2], vals[5], vals[8]], // Col 3
+                [vals[0], vals[4], vals[8]], // Diag 1
+                [vals[2], vals[4], vals[6]]  // Diag 2
+            ];
+
+            let score = 0;
+            let straights = 0;
+            let triples = 0;
+            let parities = 0;
+            let symmetries = 0;
+
+            lines.forEach(l => {
+                const sorted = [...l].sort((a,b) => a - b);
+                // Straight: consecutive
+                if (sorted[1] === sorted[0] + 1 && sorted[2] === sorted[1] + 1) {
+                    score += 5; straights++;
+                } else if (l[0] === l[1] && l[1] === l[2]) {
+                    // Triple
+                    score += 4; triples++;
+                } else if ((l[0] % 2 === l[1] % 2) && (l[1] % 2 === l[2] % 2)) {
+                    // Parity: all even or all odd
+                    score += 3; parities++;
+                } else if (l[0] === l[2]) {
+                    // Symmetry
+                    score += 2; symmetries++;
+                }
+            });
+
+            scoreBadgeEl.textContent = `Harmony: ${score} pts`;
+            breakdownEl.textContent = `${straights} Straights (+${straights*5}), ${triples} Triples (+${triples*4}), ${parities} Parity (+${parities*3}), ${symmetries} Symmetries (+${symmetries*2})`;
+
+            if (score >= 24 && typeof confetti === 'function') {
+                confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+            }
+        }
+
+        function resetGarden() {
+            document.querySelectorAll('.garden-cell').forEach(inp => inp.value = '');
+            evalGarden();
+        }
+
+        function fillSampleGarden() {
+            const master = [1, 2, 3, 2, 3, 4, 3, 4, 5];
+            const inputs = document.querySelectorAll('.garden-cell');
+            master.forEach((val, i) => inputs[i].value = val);
+            evalGarden();
+        }
+
+        // 2. Lanternkeeper Tracker Logic
+        let beaconState = [false, false, false, false, false, false, false, false];
+        let oilFlask = 15;
+        let fogCount = 0;
+
+        function renderLanternkeeper() {
+            const rackEl = document.getElementById('beacon-rack');
+            rackEl.innerHTML = '';
+
+            let litCount = 0;
+            beaconState.forEach((isLit, idx) => {
+                if (isLit) litCount++;
+                const b = document.createElement('button');
+                b.onclick = () => toggleBeacon(idx);
+                b.className = `py-3 rounded-xl border flex flex-col items-center justify-center font-mono text-xs transition ${
+                    isLit 
+                    ? 'bg-amber text-midnight-950 font-bold border-amber shadow-sm' 
+                    : 'bg-white text-slate-500 border-surface-border hover:border-slate-400'
+                }`;
+                b.innerHTML = `
+                    <span class="text-sm">${isLit ? '🔥' : '🕯️'}</span>
+                    <span class="font-bold mt-1">${idx + 1}</span>
+                `;
+                rackEl.appendChild(b);
+            });
+
+            document.getElementById('beacon-lit-count').textContent = `${litCount} / 8 Lit`;
+            document.getElementById('oil-display').textContent = oilFlask;
+            document.getElementById('fog-display').textContent = `${fogCount} / 3`;
+
+            if (litCount === 8 && typeof confetti === 'function') {
+                confetti({ particleCount: 70, spread: 70, origin: { y: 0.7 } });
+            }
+        }
+
+        function toggleBeacon(idx) {
+            beaconState[idx] = !beaconState[idx];
+            renderLanternkeeper();
+        }
+
+        function adjustOil(delta) {
+            oilFlask = Math.max(0, oilFlask + delta);
+            renderLanternkeeper();
+        }
+
+        function adjustFog(delta) {
+            fogCount = Math.max(0, Math.min(3, fogCount + delta));
+            if (fogCount === 3) {
+                // Auto penalty alert in tracker
+                adjustOil(-3);
+                fogCount = 0;
+            }
+            renderLanternkeeper();
+        }
+
+        function resetLanternkeeper() {
+            beaconState = [false, false, false, false, false, false, false, false];
+            oilFlask = 15;
+            fogCount = 0;
+            renderLanternkeeper();
+        }
+
+        // Directory Rendering & Filters
         const gamesGridEl = document.getElementById('games-grid');
         let activeCategory = 'All';
         let searchQuery = '';
@@ -949,7 +1294,7 @@
             if (filtered.length === 0) {
                 gamesGridEl.innerHTML = `
                     <div class="col-span-full py-12 text-center text-slate-500 text-sm">
-                        No dice games found matching your search. Try searching for "6 Dice" or "Push-Your-Luck".
+                        No dice games found matching your search. Try searching for "Solo" or "Push-Your-Luck".
                     </div>
                 `;
                 return;
@@ -965,9 +1310,10 @@
                         <div class="flex items-center justify-between gap-2 mb-3">
                             <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500">${game.dice}</span>
                             <span class="px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                                game.category === 'Solo Games' ? 'bg-teal-light text-teal border border-teal/20' :
                                 game.category === 'Push-Your-Luck' ? 'bg-coral-light text-coral' :
-                                game.category === 'Pub & Bluff' ? 'bg-amber-light text-amber-900' :
-                                game.category === 'Cozy Solo' ? 'bg-teal-light text-teal' : 'bg-midnight-900 text-white'
+                                game.category === 'Social & Bluffing' ? 'bg-amber-light text-amber-900' :
+                                'bg-midnight-900 text-white'
                             }">${game.category}</span>
                         </div>
                         <h3 class="font-display font-bold text-xl text-midnight-900 group-hover:text-coral transition-colors">${game.title}</h3>
@@ -998,11 +1344,6 @@
             renderGames();
         }
 
-        function filterByTag(tag) {
-            filterCategory(tag);
-            document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
-        }
-
         function handleSearch() {
             searchQuery = document.getElementById('game-search').value.trim();
             renderGames();
@@ -1013,7 +1354,7 @@
             openGameModal(random.id);
         }
 
-        // Rules Modal
+        // Rules Modal Logic
         const modalEl = document.getElementById('rules-modal');
         const modalBodyEl = document.getElementById('modal-body');
 
@@ -1033,12 +1374,13 @@
                     <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-midnight-900">${g.title}</h2>
                     <p class="text-xs text-slate-400 font-medium mt-0.5">${g.subtitle}</p>
 
-                    <div class="mt-5 p-3.5 rounded-2xl bg-surface-bg border border-surface-border text-xs text-slate-700">
-                        <strong class="font-bold text-midnight-900">Objective:</strong> ${g.objective}
+                    <div class="mt-5 p-3.5 rounded-2xl bg-surface-bg border border-surface-border text-xs text-slate-700 space-y-1.5">
+                        <div><strong class="font-bold text-midnight-900">Objective:</strong> ${g.objective}</div>
+                        <div><strong class="font-bold text-midnight-900">Equipment:</strong> ${g.equipment}</div>
                     </div>
 
                     <div class="mt-6 space-y-4 text-xs sm:text-sm text-slate-700 leading-relaxed">
-                        <h4 class="font-display font-bold text-midnight-900 text-sm">How to Play</h4>
+                        <h4 class="font-display font-bold text-midnight-900 text-sm">Rules &amp; Sequence of Play</h4>
                         <ol class="list-decimal pl-5 space-y-2 text-slate-600">
                             ${g.rules.map(r => `<li>${r}</li>`).join('')}
                         </ol>
@@ -1052,7 +1394,7 @@
                     <div class="mt-8 pt-4 border-t border-slate-200 flex items-center justify-between text-xs">
                         <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-surface-bg hover:bg-slate-200 text-slate-700 font-semibold transition flex items-center gap-1.5">
                             <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-                            Print Rules
+                            Print Rule Sheet
                         </button>
                         <button onclick="closeRulesModal()" class="px-5 py-2 rounded-xl bg-midnight-900 hover:bg-midnight-800 text-white font-bold transition">
                             Done
@@ -1077,65 +1419,10 @@
             if (e.key === 'Escape') closeRulesModal();
         });
 
-        // Quick Game Matcher Logic
-        const finderState = { player: null, time: null, vibe: null };
-
-        function selectFinderOption(group, val) {
-            finderState[group] = val;
-
-            document.querySelectorAll(`.finder-opt[data-group="${group}"]`).forEach(btn => {
-                if (btn.getAttribute('data-val') === val) {
-                    btn.className = 'finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-bold bg-midnight-900 text-white transition shadow-sm';
-                } else {
-                    btn.className = 'finder-opt w-full text-left px-3 py-2 rounded-xl text-xs font-medium bg-white border border-surface-border hover:border-midnight-700 transition';
-                }
-            });
-
-            evaluateFinder();
-        }
-
-        let matchedGameId = null;
-
-        function evaluateFinder() {
-            const { player, time, vibe } = finderState;
-            const titleEl = document.getElementById('finder-result-title');
-            const descEl = document.getElementById('finder-result-desc');
-            const btnEl = document.getElementById('finder-view-btn');
-
-            if (!player || !time || !vibe) {
-                titleEl.textContent = 'Keep picking options...';
-                descEl.textContent = 'Select all 3 preferences to get your recommendation.';
-                btnEl.classList.add('hidden');
-                return;
-            }
-
-            if (player === '1') {
-                matchedGameId = (vibe === 'push') ? 'drop-dead' : 'shut-the-box';
-            } else if (vibe === 'bluff') {
-                matchedGameId = 'liars-dice';
-            } else if (vibe === 'push') {
-                matchedGameId = (time === 'short') ? 'pig' : 'farkle';
-            } else if (vibe === 'calm') {
-                matchedGameId = (player === '2') ? 'shut-the-box' : 'yahtzee';
-            } else {
-                matchedGameId = 'ship-captain-crew';
-            }
-
-            const game = GAMES.find(g => g.id === matchedGameId);
-            if (game) {
-                titleEl.textContent = `${game.title} — ${game.subtitle}`;
-                descEl.textContent = `${game.summary} (Fits ${game.players} • ${game.time})`;
-                btnEl.classList.remove('hidden');
-            }
-        }
-
-        function openSelectedFinderGame() {
-            if (matchedGameId) openGameModal(matchedGameId);
-        }
-
-        // Initialize view
+        // Initialize Everything
         renderGames();
         setRollMode(5);
+        renderLanternkeeper();
     </script>
 </body>
 </html>
